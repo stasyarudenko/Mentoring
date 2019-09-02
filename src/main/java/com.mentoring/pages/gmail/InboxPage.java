@@ -98,7 +98,7 @@ public class InboxPage extends BasePage {
     // readbility -- clean code
     // DONE. browser.quit instead of .close
     // DONE. before, after --> beforeClass, AfterClass вынести в отд класс
-    // selenium - как знает, что страница прогрузилась
+    // selenium - как знает, что страница прогрузилась: document.readyState = complete
     // DONE. сделать проще тест - логин и пароль
     // commit from текущей бранчи с фичей вмерджить в другую бранчу с фичей
     // git HEAD, git revert, git reset
