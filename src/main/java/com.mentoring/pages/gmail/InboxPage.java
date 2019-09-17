@@ -1,15 +1,16 @@
 package com.mentoring.pages.gmail;
 
+import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.NoSuchElementException;
 
+
 public class InboxPage extends BasePage {
 
     // INBOX PAGE
-    private static final By WRITE_EMAIL_BUTTON = By.cssSelector(".z0 div[role=\"button\"]");
+    private static final By WRITE_EMAIL_BUTTON = By.cssSelector(".z0 div[role='button']");
     private static final By NEW_EMAIL_POPUP = By.cssSelector(".a3E .aYF");
     private static final By INBOX_LINK = By.cssSelector(".aim.ain a.J-Ke.n0");
     private static final By UNREAD_EMAIL_LINE = By.cssSelector(".zA.zE");
@@ -22,10 +23,6 @@ public class InboxPage extends BasePage {
     private static final By SEND_EMAIL_BUTTON = By.cssSelector(".v7.L3");
     // EMAIL PAGE
     private static final By EMAIL_TEXT = By.cssSelector(".ii.gt div[dir=\"ltr\"]");
-
-    public InboxPage(WebDriver driver) {
-        super(driver);
-    }
 
     public static void clickWriteEmailBtn() {
 
@@ -105,4 +102,23 @@ public class InboxPage extends BasePage {
     // UNIX - terminal
     // DONE. gitignore - добавить в гитигнор чтоб не коммитился
     // DONE. .gitignore - сгенерить и убрать лишнее
+
+
+    // ---------------
+    // заменить в локаторах " на ' - убрать экранирование
+    // subject = "" - заменить проверку
+    // поменять названия элементов из фреймворка, чтоб соответствовали названиям на странице
+    // добавить проверку первого письма после клика по рефрешу
+    // два ассерта: 1 - письмо первое в списке, 2 - что сабджект совпадает + клик на рефреш
+    // спрятать driver.get("http://gmail.com/"); и остальное под капот на бейс пейдж
+    // метод начинается на тест, классы - заканчиваются
+    // изменения делать в отдельной бранче --> пулл реквест
+    // wait - SECONDS - добавить переменную времени ожидания и конфигуражить ее - Duration
+    // selenium selenoid - дефолтные значения для времени ожидания (явного неявного)
+    // посмотреть изменения из ветки Миши
+    // почитать по гиту (на гугл доке)
+    // lorem ipsum - subject заменить
+    // понять, как инициализируется драйвер и как исп
+    // UNIX!!!!!!
+
 }

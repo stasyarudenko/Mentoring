@@ -1,5 +1,6 @@
-package com.mentoring.pages.gmail;
+package com.mentoring.pages;
 
+import com.mentoring.core.Configuration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -12,15 +13,23 @@ import java.util.NoSuchElementException;
 
 public class BasePage {
 
-    public static WebDriver driver;
+    private static WebDriver driver;
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
+    public static void setDriver(WebDriver driver) {
+        BasePage.driver = driver;
+    }
+
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
+    public static void visit(String url) {
+        getDriver().get(url);
     }
 
     public static WebElement waitForElementToBeDisplayed(By locator) {
 
-    WebDriverWait wait = new WebDriverWait(driver, 100);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Configuration.TIMEOUT);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
             return driver.findElement(locator);
@@ -31,7 +40,7 @@ public class BasePage {
 
     public static List<WebElement> waitForAllElementsToBeDisplayed(By locator) {
 
-    WebDriverWait wait = new WebDriverWait(driver, 100);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Configuration.TIMEOUT);
         List<WebElement> elements = driver.findElements(locator);
 
         try {

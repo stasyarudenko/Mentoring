@@ -1,27 +1,24 @@
 package com.mentoring.ui;
 
-import com.mentoring.pages.gmail.BasePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.openqa.selenium.WebDriver;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import static com.mentoring.pages.BasePage.getDriver;
+import static com.mentoring.pages.BasePage.setDriver;
 
 public class BaseTest {
 
-    public static WebDriver driver;
-
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
 
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        BasePage basePage = new BasePage(driver);
+        setDriver(new ChromeDriver());
     }
 
-    @AfterAll
-    public static void shutDown() {
-        driver.quit();
+    @AfterEach
+    public void shutDown() {
+        getDriver().quit();
     }
 }
