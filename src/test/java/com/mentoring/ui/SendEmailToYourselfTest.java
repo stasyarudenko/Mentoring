@@ -9,7 +9,6 @@ import java.util.Calendar;
 import static com.mentoring.core.Configuration.LOGIN;
 import static com.mentoring.core.Configuration.PASSWORD;
 import static com.mentoring.pages.BasePage.visit;
-import static com.mentoring.pages.gmail.InboxPage.getEmailText;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SendEmailToYourselfTest extends BaseTest {
@@ -26,15 +25,16 @@ public class SendEmailToYourselfTest extends BaseTest {
         String emailText = "test 1 \n test 2 \n test 3\n test4";
         String email = "anrud.user@gmail.com";
 
-        InboxPage.clickWriteEmailBtn();
-        InboxPage.fillSubject(subject);
-        InboxPage.fillEmailText(emailText);
-        InboxPage.fillRecipients(email);
-        InboxPage.clickSendButton();
+        InboxPage inboxPage = new InboxPage();
+        inboxPage.clickWriteEmailBtn();
+        inboxPage.fillSubject(subject);
+        inboxPage.fillEmailText(emailText);
+        inboxPage.fillRecipients(email);
+        inboxPage.clickSendButton();
 
-        InboxPage.clickOnRefreshButton();
-        assertEquals(subject, InboxPage.getFirstEmailSubject(), "The email subject is not as expected.");
-        InboxPage.openEmailWithSubject(subject);
-        assertEquals(emailText, getEmailText(), "The email text is not as expected.");
+        inboxPage.clickOnRefreshButton();
+        assertEquals(subject, inboxPage.getFirstEmailSubject(), "The email subject is not as expected.");
+        inboxPage.openEmailWithSubject(subject);
+        assertEquals(emailText, inboxPage.getEmailText(), "The email text is not as expected.");
     }
 }
