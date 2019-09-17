@@ -29,8 +29,8 @@ public class SendEmailToYourselfTest extends BaseTest {
         InboxPage.clickWriteEmailBtn();
         InboxPage.fillSubject(subject);
         InboxPage.fillEmailText(emailText);
-        InboxPage.fillReceivers(email);
-        InboxPage.clickSendEmailBtn();
+        InboxPage.fillRecipients(email);
+        InboxPage.clickSendButton();
 
         InboxPage.openEmailWithSubject(subject);
         assertEquals(emailText, getEmailText(), "The email text is not as expected.");
