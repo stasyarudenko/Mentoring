@@ -9,6 +9,9 @@ import java.util.NoSuchElementException;
 
 public class InboxPage extends BasePage {
 
+    private static final By SUBJECT_ON_INBOX_PAGE = By.cssSelector("span.bog");
+    private static final By UNREAD_EMAIL_LINE = By.cssSelector(".zA.zE");
+
     public static void clickWriteEmailBtn() {
 
         By composeButton = By.cssSelector(".z0 div[role='button']");
@@ -48,21 +51,19 @@ public class InboxPage extends BasePage {
         sendButton.click();
     }
 
+    public static void clickOnRefreshButton() {
+        By refreshButton = By.cssSelector(".nu.L3");
+        waitForElementToBeDisplayed(refreshButton).click();
+    }
+
     public static void openEmailWithSubject(String subject) {
         getEmailWithSubject(subject).click();
     }
 
     public static WebElement getEmailWithSubject(String subject) {
 
-        By inboxLink = By.cssSelector(".aim.ain a.J-Ke.n0");
-        waitForElementToBeDisplayed(inboxLink).click();
-
-
-        By unreadEmailLine = By.cssSelector(".zA.zE");
-        By subjectText = By.cssSelector("span.bog");
-
-        return waitForAllElementsToBeDisplayed(unreadEmailLine).stream()
-                .filter(p -> p.findElement(subjectText).getText().equalsIgnoreCase(subject))
+        return waitForAllElementsToBeDisplayed(UNREAD_EMAIL_LINE).stream()
+                .filter(p -> p.findElement(SUBJECT_ON_INBOX_PAGE).getText().equalsIgnoreCase(subject))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No email with subject was found"));
     }
@@ -70,5 +71,9 @@ public class InboxPage extends BasePage {
     public static String getEmailText() {
         By emailText = By.cssSelector(".ii.gt div[dir='ltr']");
         return waitForElementToBeDisplayed(emailText).getText();
+    }
+
+    public static String getFirstEmailSubject() {
+        return waitForElementToBeDisplayed(UNREAD_EMAIL_LINE).findElement(SUBJECT_ON_INBOX_PAGE).getText();
     }
 }

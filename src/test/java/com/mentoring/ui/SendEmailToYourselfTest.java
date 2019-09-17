@@ -32,6 +32,8 @@ public class SendEmailToYourselfTest extends BaseTest {
         InboxPage.fillRecipients(email);
         InboxPage.clickSendButton();
 
+        InboxPage.clickOnRefreshButton();
+        assertEquals(subject, InboxPage.getFirstEmailSubject(), "The email subject is not as expected.");
         InboxPage.openEmailWithSubject(subject);
         assertEquals(emailText, getEmailText(), "The email text is not as expected.");
     }
