@@ -1,10 +1,7 @@
 package com.mentoring.pages;
 
 import com.mentoring.core.Configuration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -48,6 +45,16 @@ public class BasePage {
             return elements;
         } catch (StaleElementReferenceException e) {
             throw new NoSuchElementException("No elements were found");
+        }
+    }
+
+    public static void waitForElementToDisappear(By locator) {
+
+        WebDriverWait wait = new WebDriverWait(getDriver(), Configuration.TIMEOUT);
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        } catch (StaleElementReferenceException e) {
+            throw new TimeoutException("The element should disappear");
         }
     }
 }
