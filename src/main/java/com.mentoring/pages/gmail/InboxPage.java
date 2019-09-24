@@ -9,116 +9,72 @@ import java.util.NoSuchElementException;
 
 public class InboxPage extends BasePage {
 
-    // INBOX PAGE
-    private static final By WRITE_EMAIL_BUTTON = By.cssSelector(".z0 div[role='button']");
-    private static final By NEW_EMAIL_POPUP = By.cssSelector(".a3E .aYF");
-    private static final By INBOX_LINK = By.cssSelector(".aim.ain a.J-Ke.n0");
+    private static final By SUBJECT_ON_INBOX_PAGE = By.cssSelector("span.bog");
     private static final By UNREAD_EMAIL_LINE = By.cssSelector(".zA.zE");
-    private static final By SUBJECT = By.cssSelector("span.bog");
-    // NEW EMAIL FORM
-    private static final By SUBJECT_FIELD = By.cssSelector("input[name=\"subjectbox\"]");
-    private static final By EMAIL_TEXT_FIELD = By.cssSelector(".Am.LW-avf");
-    private static final By RECEIVERS_FIELD = By.cssSelector(".oL.aDm");
-    private static final By RECEIVERS_EMAILS_FIELD = By.cssSelector(".l1 textarea.vO");
-    private static final By SEND_EMAIL_BUTTON = By.cssSelector(".v7.L3");
-    // EMAIL PAGE
-    private static final By EMAIL_TEXT = By.cssSelector(".ii.gt div[dir=\"ltr\"]");
 
-    public static void clickWriteEmailBtn() {
+    public void clickWriteEmailBtn() {
 
-        waitForElementToBeDisplayed(WRITE_EMAIL_BUTTON).click();
-        waitForElementToBeDisplayed(NEW_EMAIL_POPUP);
+        By composeButton = By.cssSelector(".z0 div[role='button']");
+        By newMessagePopup = By.cssSelector(".a3E .aYF");
+
+        waitForElementToBeDisplayed(composeButton).click();
+        waitForElementToBeDisplayed(newMessagePopup);
     }
 
-    public static void fillReceivers(String email) {
+    public void fillRecipients(String email) {
 
-        WebElement emailField = waitForElementToBeDisplayed(RECEIVERS_FIELD);
-        emailField.click();
+        WebElement recipientsField = waitForElementToBeDisplayed(By.cssSelector(".oL.aDm"));
+        recipientsField.click();
 
-        WebElement receiversField = waitForElementToBeDisplayed(RECEIVERS_EMAILS_FIELD);
-        receiversField.click();
-        receiversField.sendKeys(email);
+        WebElement toField = waitForElementToBeDisplayed(By.cssSelector(".l1 textarea.vO"));
+        toField.click();
+        toField.sendKeys(email);
     }
 
-    public static void fillEmailText(String letterText) {
+    public void fillEmailText(String letterText) {
 
-        WebElement emailTextField = waitForElementToBeDisplayed(EMAIL_TEXT_FIELD);
+        WebElement emailTextField = waitForElementToBeDisplayed(By.cssSelector(".Am.LW-avf"));
         emailTextField.click();
         emailTextField.sendKeys(letterText);
     }
 
-    public static void fillSubject(String subject) {
+    public void fillSubject(String subject) {
 
-        WebElement subjectField = waitForElementToBeDisplayed(SUBJECT_FIELD);
+        WebElement subjectField = waitForElementToBeDisplayed(By.cssSelector("input[name='subjectbox']"));
         subjectField.click();
         subjectField.sendKeys(subject);
     }
 
-    public static void clickSendEmailBtn() {
+    public void clickSendButton() {
 
-        WebElement sendBtn = waitForElementToBeDisplayed(SEND_EMAIL_BUTTON);
-        sendBtn.click();
+        WebElement sendButton = waitForElementToBeDisplayed(By.cssSelector(".v7.L3"));
+        sendButton.click();
     }
 
-    public static void openEmailWithSubject(String subject) {
+    public void clickOnRefreshButton() {
 
-        if (subject.equals("")) {
-            subject = "(без темы)";
-        }
+        By refreshButton = By.cssSelector(".nu.L3");
+        waitForElementToBeDisplayed(refreshButton).click();
+    }
+
+    public void openEmailWithSubject(String subject) {
         getEmailWithSubject(subject).click();
     }
 
-    public static WebElement getEmailWithSubject(String subject) {
-
-        waitForElementToBeDisplayed(INBOX_LINK).click();
+    public WebElement getEmailWithSubject(String subject) {
 
         return waitForAllElementsToBeDisplayed(UNREAD_EMAIL_LINE).stream()
-                .filter(p -> p.findElement(SUBJECT).getText().equalsIgnoreCase(subject))
+                .filter(p -> p.findElement(SUBJECT_ON_INBOX_PAGE).getText().equalsIgnoreCase(subject))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No email with subject was found"));
     }
 
-    public static String getEmailText() {
-        return waitForElementToBeDisplayed(EMAIL_TEXT).getText();
+    public String getEmailText() {
+        By emailText = By.cssSelector(".ii.gt div[dir='ltr']");
+        return waitForElementToBeDisplayed(emailText).getText();
     }
 
-    // ToDo:
-    // logout after test passed ?
-
-
-    // naming convenction - java package naming, interface, methods, test methods,
-    // page object
-    // DONE. тестовые методы заканчиваются на слово Test
-    // DONE. test class name - ...Test -->
-    // DONE. Web Driver Manager -- удалить папку с драйверами
-    // DONE. JUnit --> 5 вместо 4
-    // readbility -- clean code
-    // DONE. browser.quit instead of .close
-    // DONE. before, after --> beforeClass, AfterClass вынести в отд класс
-    // selenium - как знает, что страница прогрузилась: document.readyState = complete
-    // DONE. сделать проще тест - логин и пароль
-    // commit from текущей бранчи с фичей вмерджить в другую бранчу с фичей
-    // git HEAD, git revert, git reset
-    // UNIX - terminal
-    // DONE. gitignore - добавить в гитигнор чтоб не коммитился
-    // DONE. .gitignore - сгенерить и убрать лишнее
-
-
-    // ---------------
-    // заменить в локаторах " на ' - убрать экранирование
-    // subject = "" - заменить проверку
-    // поменять названия элементов из фреймворка, чтоб соответствовали названиям на странице
-    // добавить проверку первого письма после клика по рефрешу
-    // два ассерта: 1 - письмо первое в списке, 2 - что сабджект совпадает + клик на рефреш
-    // спрятать driver.get("http://gmail.com/"); и остальное под капот на бейс пейдж
-    // метод начинается на тест, классы - заканчиваются
-    // изменения делать в отдельной бранче --> пулл реквест
-    // wait - SECONDS - добавить переменную времени ожидания и конфигуражить ее - Duration
-    // selenium selenoid - дефолтные значения для времени ожидания (явного неявного)
-    // посмотреть изменения из ветки Миши
-    // почитать по гиту (на гугл доке)
-    // lorem ipsum - subject заменить
-    // понять, как инициализируется драйвер и как исп
-    // UNIX!!!!!!
-
+    public String getFirstEmailSubject() {
+        return waitForElementToBeDisplayed(UNREAD_EMAIL_LINE).findElement(SUBJECT_ON_INBOX_PAGE).getText();
+    }
 }
