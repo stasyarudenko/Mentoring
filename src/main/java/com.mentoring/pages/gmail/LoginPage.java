@@ -8,21 +8,21 @@ public class LoginPage extends BasePage {
 
     public void setLogin(String login) {
 
-        WebElement emailInput = waitForElementToBeDisplayed(By.cssSelector("input[type=\"email\"]"));
-        WebElement nextButton = waitForElementToBeDisplayed(By.cssSelector("div[id=\"identifierNext\"]"));
+        WebElement emailOrPhoneInput = waitForElementToBeDisplayed(By.cssSelector("input[type='email']"));
+        WebElement nextButton = waitForElementToBeDisplayed(By.cssSelector("div[id='identifierNext']"));
 
-        emailInput.click();
-        emailInput.sendKeys(login);
+        emailOrPhoneInput.click();
+        emailOrPhoneInput.sendKeys(login);
         nextButton.click();
     }
 
     public void setPassword(String password) {
 
-        WebElement passwordInput = waitForElementToBeDisplayed(By.cssSelector("input[type=\"password\"]"));
-        WebElement passwordNextButton = waitForElementToBeDisplayed(By.cssSelector("div[id=\"passwordNext\"]"));
+        WebElement enterYourPasswordInput = waitForElementToBeDisplayed(By.cssSelector("input[type='password']"));
+        WebElement nextButton = waitForElementToBeDisplayed(By.cssSelector("div[id='passwordNext']"));
 
-        passwordInput.click();
-        passwordInput.sendKeys(password);
-        passwordNextButton.click();
+        enterYourPasswordInput.click();
+        enterYourPasswordInput.sendKeys(password);
+        nextButton.click();
     }
 }
