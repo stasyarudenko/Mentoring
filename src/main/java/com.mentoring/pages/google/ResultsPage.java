@@ -16,17 +16,13 @@ public class ResultsPage extends BasePage {
         return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(searchResults)).size();
     }
 
-    public String getFirstSourceUrl() {
+    public String getFirstResultLink() {
         return waitFor(ExpectedConditions.visibilityOfElementLocated(RESULT_LINK)).getText();
     }
 
-    public void openFirstSource() {
+    public void openFirstResultLink() {
 
         waitFor(ExpectedConditions.visibilityOfElementLocated(RESULT_LINK)).click();
         waitFor(ExpectedConditions.invisibilityOfElementLocated(RESULT_LINK));
-    }
-
-    public String getTitle() {
-        return getDriver().getTitle();
     }
 }

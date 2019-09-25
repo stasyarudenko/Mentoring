@@ -10,29 +10,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
 
 
+    SearchPage searchPage = new SearchPage();
+
     @Test
     public void testVerifySearchResultsForSelenium() {
 
-        SearchPage searchPage = new SearchPage();
         visit("https://google.com");
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
         assertEquals(9, resultsPage.getNumberOfSearchResults(),
                 "The number of search results should be equal to 10");
-        assertEquals("https://www.seleniumhq.org", resultsPage.getFirstSourceUrl(),
+        assertEquals("https://www.seleniumhq.org", resultsPage.getFirstResultLink(),
                 "The URL for first link is not as expected");
     }
 
     @Test
     public void testVerifyTitleForFirstSearchResult() {
 
-        SearchPage searchPage = new SearchPage();
         visit("https://google.com");
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
-        resultsPage.openFirstSource();
+        resultsPage.openFirstResultLink();
         assertEquals("Selenium - Web Browser Automation", resultsPage.getTitle(),
                 "The title of first source page is not as expected");
     }
