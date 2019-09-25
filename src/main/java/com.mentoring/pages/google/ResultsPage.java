@@ -2,27 +2,31 @@ package com.mentoring.pages.google;
 
 import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 
 public class ResultsPage extends BasePage {
 
-    private static final By URL = By.cssSelector(".srg .iUh30");
+    private static final By RESULT_LINK = By.cssSelector(".srg .iUh30");
 
     public long getNumberOfSearchResults() {
 
-//        By searchResult = By.cssSelector(".bkWMgd .srg a .LC20lb");
-        By searchResult = By.cssSelector("a .LC20lb");
-        return waitForAllElementsToBeDisplayed(searchResult).size();
+        By searchResults = By.cssSelector("a .LC20lb");
+        return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(searchResults)).size();
     }
 
     public String getFirstSourceUrl() {
-        return waitForElementToBeDisplayed(URL).getText();
+        return waitFor(ExpectedConditions.visibilityOfElementLocated(RESULT_LINK)).getText();
     }
 
-    public String openFirstSourceAndGetTitle() {
+    public void openFirstSource() {
 
-        waitForElementToBeDisplayed(URL).click();
-        waitForElementToDisappear(URL);
+        waitFor(ExpectedConditions.visibilityOfElementLocated(RESULT_LINK)).click();
+        waitFor(ExpectedConditions.invisibilityOfElementLocated(RESULT_LINK));
+    }
+
+    public String getTitle() {
         return getDriver().getTitle();
     }
 }
