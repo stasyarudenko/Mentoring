@@ -25,7 +25,7 @@ public class SendEmailToYourselfTest extends BaseTest {
         searchPage.navigateTo("Gmail");
 
         String subject = Calendar.getInstance().getTime().toString();
-        String emailText = "test 1 \n test 2 \n test 3\n test4";
+        String emailText = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.";
         String email = "anrud.user@gmail.com";
 
         InboxPage inboxPage = new InboxPage();
