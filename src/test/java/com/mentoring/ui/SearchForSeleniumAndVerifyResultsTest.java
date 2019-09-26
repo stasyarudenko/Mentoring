@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
 
 
-    SearchPage searchPage = new SearchPage();
+    private SearchPage searchPage = new SearchPage();
 
     @Test
     public void testVerifySearchResultsForSelenium() {

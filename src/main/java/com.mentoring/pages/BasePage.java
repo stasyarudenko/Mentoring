@@ -4,9 +4,10 @@ import com.mentoring.core.Configuration;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 
 public class BasePage {
@@ -33,8 +34,11 @@ public class BasePage {
 
     protected static <T> T waitFor(ExpectedCondition<T> condition) {
 
-        WebDriverWait wait = new WebDriverWait(getDriver(), Configuration.TIMEOUT);
-        return wait.until(condition);
+        return new FluentWait<>(getDriver())
+                .withTimeout(Configuration.TIMEOUT.getSeconds(), TimeUnit.SECONDS)
+                .pollingEvery(Configuration.POLLING.getSeconds(), TimeUnit.MICROSECONDS)
+                .ignoring(WebDriverException.class, IndexOutOfBoundsException.class)
+                .until(condition);
     }
 
     public void clickSignInButton() {
