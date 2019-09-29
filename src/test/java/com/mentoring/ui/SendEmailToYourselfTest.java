@@ -1,7 +1,7 @@
 package com.mentoring.ui;
 
 import com.mentoring.pages.gmail.InboxPage;
-import com.mentoring.pages.gmail.LoginPage;
+import com.mentoring.pages.google.SearchPage;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -16,13 +16,16 @@ public class SendEmailToYourselfTest extends BaseTest {
     @Test
     public void testSendEmailToYourselfAndVerifyItWasReceived() {
 
-        LoginPage loginPage = new LoginPage();
-        visit("https://gmail.com");
-        loginPage.setLogin(LOGIN);
-        loginPage.setPassword(PASSWORD);
+        SearchPage searchPage = new SearchPage();
+        visit("https://google.com");
+        searchPage.clickSignInButton();
+        searchPage.setLogin(LOGIN);
+        searchPage.setPassword(PASSWORD);
+        searchPage.openOneGoogle();
+        searchPage.navigateTo("Gmail");
 
         String subject = Calendar.getInstance().getTime().toString();
-        String emailText = "test 1 \n test 2 \n test 3\n test4";
+        String emailText = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.";
         String email = "anrud.user@gmail.com";
 
         InboxPage inboxPage = new InboxPage();
