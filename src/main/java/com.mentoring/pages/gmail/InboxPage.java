@@ -58,21 +58,28 @@ public class InboxPage extends BasePage {
         waitFor(ExpectedConditions.visibilityOfElementLocated(refreshButton)).click();
     }
 
-    public void openEmailWithSubject(String subject) {
-        getEmailWithSubject(subject).click();
+    public void openFirstUnreadEmailWhereSubjectContainsText(String subject) {
+        getFirstUnreadEmailWhereSubjectContainsText(subject).click();
     }
 
-    public WebElement getEmailWithSubject(String subject) {
+    public WebElement getFirstUnreadEmailWhereSubjectContainsText(String text) {
 
         return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(UNREAD_EMAIL_LINE)).stream()
-                .filter(p -> p.findElement(SUBJECT_ON_INBOX_PAGE).getText().equalsIgnoreCase(subject))
+                .filter(p -> p.findElement(SUBJECT_ON_INBOX_PAGE).getText().contains(text))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No email with subject was found"));
     }
 
     public String getEmailText() {
+
         By emailText = By.cssSelector(".ii.gt div[dir='ltr']");
         return waitFor(ExpectedConditions.visibilityOfElementLocated(emailText)).getText();
+    }
+
+    public void clickRegistrationLinkFromEmailText() {
+
+        By linkFromEmailText = By.cssSelector(".ii.gt .a3s a");
+        clickOnElementLocated(linkFromEmailText);
     }
 
     public String getFirstEmailSubject() {
