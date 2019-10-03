@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +18,7 @@ public class BasePage {
 
     private By ONE_GOOGLE_MENU = By.cssSelector("a.gb_B[aria-expanded]");
 
-//    private static Actions actions = new Actions(driver);
+    private Actions actions = new Actions(getDriver());
 
     public static void setDriver(WebDriver driver) {
         BasePage.driver = driver;
@@ -35,11 +36,15 @@ public class BasePage {
         return getDriver().getTitle();
     }
 
-    protected static <T> T waitFor(ExpectedCondition<T> condition) {
+    public static <T> T waitFor(ExpectedCondition<T> condition) {
+        return waitFor(condition, Configuration.TIMEOUT, Configuration.POLLING);
+    }
+
+    public static <T> T waitFor(ExpectedCondition<T> condition, Duration timeout, Duration pulling) {
 
         return new FluentWait<>(getDriver())
-                .withTimeout(Configuration.TIMEOUT.getSeconds(), TimeUnit.SECONDS)
-                .pollingEvery(Configuration.POLLING.getSeconds(), TimeUnit.MICROSECONDS)
+                .withTimeout(timeout.getSeconds(), TimeUnit.SECONDS)
+                .pollingEvery(pulling.getSeconds(), TimeUnit.SECONDS)
                 .ignoring(WebDriverException.class, IndexOutOfBoundsException.class)
                 .until(condition);
     }
@@ -86,14 +91,10 @@ public class BasePage {
     }
 
     public void fillInputWithText(By locator, String text) {
-
-        Actions actions = new Actions(driver);
         actions.click(waitFor(ExpectedConditions.visibilityOfElementLocated(locator))).sendKeys(text).perform();
     }
 
     public void clickOnElementLocated(By locator) {
-
-        Actions actions = new Actions(driver);
         actions.click(waitFor(ExpectedConditions.elementToBeClickable(locator))).perform();
     }
 

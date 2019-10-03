@@ -3,8 +3,6 @@ package com.mentoring.core;
 
 import java.time.Duration;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
-
 public class Configuration {
 
     public static final String LOGIN = "anrud.user";
@@ -12,10 +10,10 @@ public class Configuration {
     public static final String FIRST_NAME = "anrud";
     public static final String LAST_NAME = "user";
 
-    public static Duration TIMEOUT = Duration.ofSeconds(5);
-    public static Duration POLLING = Duration.ofMillis(100);
+    public static Duration TIMEOUT = Duration.ofSeconds(4);
+    public static Duration POLLING = Duration.ofSeconds(1);
 
-    private static int counterForAlias = 16;
+    private static int counterForAlias = 17;
 
     public static String getEmailWithAlias() {
 
