@@ -15,10 +15,11 @@ public class BaseTest {
 
         WebDriverManager.chromedriver().setup();
         setDriver(new ChromeDriver());
+        getDriver().manage().window().maximize();
     }
 
     @AfterEach
     public void shutDown() {
-        getDriver().quit();
+//        getDriver().quit();
     }
 }

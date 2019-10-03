@@ -2,6 +2,7 @@ package com.mentoring.pages;
 
 import com.mentoring.core.Configuration;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -15,6 +16,8 @@ public class BasePage {
     private static WebDriver driver;
 
     private By ONE_GOOGLE_MENU = By.cssSelector("a.gb_B[aria-expanded]");
+
+//    private static Actions actions = new Actions(driver);
 
     public static void setDriver(WebDriver driver) {
         BasePage.driver = driver;
@@ -44,32 +47,30 @@ public class BasePage {
     public void clickSignInButton() {
 
         By signInButton = By.cssSelector("div.gb_mg");
-        waitFor(ExpectedConditions.visibilityOfElementLocated(signInButton)).click();
+        clickOnElementLocated(signInButton);
     }
 
     public void setLogin(String login) {
 
-        WebElement emailOrPhoneInput = waitFor(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='email']")));
-        WebElement nextButton = waitFor(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[id='identifierNext']")));
+        By emailOrPhoneInput = By.cssSelector("input[type='email']");
+        By nextButton = By.cssSelector("div[id='identifierNext']");
 
-        emailOrPhoneInput.click();
-        emailOrPhoneInput.sendKeys(login);
-        nextButton.click();
+        fillInputWithText(emailOrPhoneInput, login);
+        clickOnElementLocated(nextButton);
     }
 
     public void setPassword(String password) {
 
-        WebElement enterYourPasswordInput = waitFor(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='password']")));
-        WebElement nextButton = waitFor(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[id='passwordNext']")));
+        By enterYourPasswordInput = By.cssSelector("input[type='password']");
+        By nextButton = By.cssSelector("div[id='passwordNext']");
 
-        enterYourPasswordInput.click();
-        enterYourPasswordInput.sendKeys(password);
-        nextButton.click();
+        fillInputWithText(enterYourPasswordInput, password);
+        clickOnElementLocated(nextButton);
     }
 
     public void openOneGoogle() {
 
-        waitFor(ExpectedConditions.visibilityOfElementLocated(ONE_GOOGLE_MENU)).click();
+        clickOnElementLocated(ONE_GOOGLE_MENU);
         waitFor(ExpectedConditions.attributeToBe(ONE_GOOGLE_MENU, "aria-expanded", "true"));
     }
 
@@ -82,6 +83,18 @@ public class BasePage {
                 .filter(p -> p.findElement(navMenuItemLabel).getText().equalsIgnoreCase(menuToSelect))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new).click();
+    }
+
+    public void fillInputWithText(By locator, String text) {
+
+        Actions actions = new Actions(driver);
+        actions.click(waitFor(ExpectedConditions.visibilityOfElementLocated(locator))).sendKeys(text).perform();
+    }
+
+    public void clickOnElementLocated(By locator) {
+
+        Actions actions = new Actions(driver);
+        actions.click(waitFor(ExpectedConditions.elementToBeClickable(locator))).perform();
     }
 
 }
