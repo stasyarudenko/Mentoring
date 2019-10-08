@@ -7,8 +7,7 @@ import com.mentoring.pages.kieskeurig.KieskeurigPage;
 import org.junit.jupiter.api.Test;
 
 import static com.mentoring.core.Configuration.*;
-import static com.mentoring.pages.BasePage.getDriver;
-import static com.mentoring.pages.BasePage.visit;
+import static com.mentoring.pages.BasePage.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RegisterAtKieskeurigTest extends BaseTest {
@@ -46,9 +45,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         inboxPage.clickRegistrationLinkFromEmailText();
 
         KieskeurigPage loginPage = new KieskeurigPage();
-        visit("https://www.kieskeurig.nl/");
-//        String[] activeTabs = getDriver().getWindowHandles().toArray(new String[]{});
-//        getDriver().switchTo().window(activeTabs[1]);
+        navigateToTab(1);
         loginPage.clickLoginButton();
         loginPage.openLoginTabOnModal();
         loginPage.setLoginEmailAddress(email);

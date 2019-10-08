@@ -20,6 +20,6 @@ public class BaseTest {
 
     @AfterEach
     public void shutDown() {
-//        getDriver().quit();
+        getDriver().quit();
     }
 }
