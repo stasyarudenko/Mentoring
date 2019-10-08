@@ -101,7 +101,7 @@ public class BasePage {
 
     public static void navigateToTab(int tab) {
 
-        ArrayList<String> tabs = new ArrayList<> (driver.getWindowHandles());
+        ArrayList<String> tabs = new ArrayList<> (getDriver().getWindowHandles());
         getDriver().switchTo().window(tabs.get(tab));
     }
 
