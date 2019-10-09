@@ -2,6 +2,7 @@ package com.mentoring.core;
 
 
 import java.time.Duration;
+import java.util.Random;
 
 public class Configuration {
 
@@ -17,8 +18,7 @@ public class Configuration {
 
     public static String getEmailWithAlias() {
 
-        counterForAlias++;
-        return String.join("+", LOGIN, Integer.toString(counterForAlias) + "@gmail.com");
+        return String.format("anrud.user+%s@gmail.com", new Random().nextInt());
     }
 
     public static String getLoginWithAlias() {

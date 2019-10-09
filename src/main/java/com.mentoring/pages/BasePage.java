@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -96,6 +97,12 @@ public class BasePage {
 
     public void clickOnElementLocated(By locator) {
         actions.click(waitFor(ExpectedConditions.elementToBeClickable(locator))).perform();
+    }
+
+    public static void navigateToTab(int tab) {
+
+        ArrayList<String> tabs = new ArrayList<> (getDriver().getWindowHandles());
+        getDriver().switchTo().window(tabs.get(tab));
     }
 
 }
