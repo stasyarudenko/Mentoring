@@ -29,7 +29,7 @@ public class SortingAtKieskeurigTest extends BaseTest {
 
         kieskeurigPage.openSmartphonesCatalog();
         kieskeurigPage.expandFilters();
-        kieskeurigPage.chooseSortingByPriceDescending();
+        kieskeurigPage.chooseSortingByPriceDescendingAndWaitForResultsToLoad();
 //        kieskeurigPage.loadFullCatalog();
 
         List<Double> actualPriceList = kieskeurigPage.getListOfProductPricesFromCatalog();
@@ -48,8 +48,8 @@ public class SortingAtKieskeurigTest extends BaseTest {
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openWashingMachinesCatalog();
         kieskeurigPage.expandFilters();
-        kieskeurigPage.chooseSortingMostWatched();
-        kieskeurigPage.loadFullCatalog();
+        kieskeurigPage.chooseSortingMostWatchedAndWaitForResultsToLoad();
+//        kieskeurigPage.loadFullCatalog();
 
         List<Double> actualReviewScoreList = kieskeurigPage.getListOfProductReviewScores();
         List<Double> sortedByDescendingList = kieskeurigPage.getListOfProductReviewScores();

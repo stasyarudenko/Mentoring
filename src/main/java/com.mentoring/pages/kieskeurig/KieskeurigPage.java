@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import javax.annotation.Nullable;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,6 +14,7 @@ import java.util.stream.Collectors;
 
 public class KieskeurigPage extends BasePage {
 
+    private static By catalogItem = By.cssSelector(".js-product-lists .product-tile");
 
     public void clickLoginButton() {
 
@@ -117,13 +117,14 @@ public class KieskeurigPage extends BasePage {
         clickOnElementLocated(filtersLink);
     }
 
-    public void chooseSortingByPriceDescending() {
+    public void chooseSortingByPriceDescendingAndWaitForResultsToLoad() {
 
         By filterOption = By.cssSelector(".sidebar .product-sorting label");
         waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(filterOption)).stream()
                 .filter(p -> p.getAttribute("for").equalsIgnoreCase("sort_option_6"))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new).click();
+        waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem));
     }
 
     public void loadFullCatalog() {
@@ -134,7 +135,6 @@ public class KieskeurigPage extends BasePage {
 
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         By loadingIndicator = By.cssSelector(".pagination__loading");
-        By catalogItem = By.cssSelector(".js-product-lists .product-tile");
 
         int finalNumberOfLoadedResults = numberOfLoadedResults;
         ExpectedCondition<Boolean> newResultsAreLoaded = new ExpectedCondition<Boolean>() {
@@ -180,13 +180,14 @@ public class KieskeurigPage extends BasePage {
         clickOnElementLocated(washingMachinesLink);
     }
 
-    public void chooseSortingMostWatched() {
+    public void chooseSortingMostWatchedAndWaitForResultsToLoad() {
 
         By filterOption = By.cssSelector(".sidebar .product-sorting label");
         waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(filterOption)).stream()
                 .filter(p -> p.getAttribute("for").equalsIgnoreCase("sort_option_3"))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new).click();
+        waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem));
     }
 
     public List<Double> getListOfProductReviewScores() {
