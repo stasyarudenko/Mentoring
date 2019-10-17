@@ -1,4 +1,4 @@
-package com.mentoring.pages.google;
+package com.mentoring.pages.google.google;
 
 import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;

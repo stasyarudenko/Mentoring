@@ -2,7 +2,16 @@ package com.mentoring.pages.kieskeurig;
 
 import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import javax.annotation.Nullable;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class KieskeurigPage extends BasePage {
 
@@ -94,5 +103,97 @@ public class KieskeurigPage extends BasePage {
 
         By userName = By.cssSelector(".site-header__usp .js-username");
         return waitFor(ExpectedConditions.visibilityOfElementLocated(userName)).getText();
+    }
+
+    public void openSmartphonesCatalog() {
+
+        By smartphonesLink = By.cssSelector(".cat-tile a[href='/smartphone']");
+        clickOnElementLocated(smartphonesLink);
+    }
+
+    public void expandFilters() {
+
+        By filtersLink = By.cssSelector(".sidebar .product-sorting");
+        clickOnElementLocated(filtersLink);
+    }
+
+    public void chooseSortingByPriceDescending() {
+
+        By filterOption = By.cssSelector(".sidebar .product-sorting label");
+        waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(filterOption)).stream()
+                .filter(p -> p.getAttribute("for").equalsIgnoreCase("sort_option_6"))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new).click();
+    }
+
+    public void loadFullCatalog() {
+
+//        int totalResults = getTotalNumberOfResults();
+        int totalResults = 500;
+        int numberOfLoadedResults = 0;
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        By loadingIndicator = By.cssSelector(".pagination__loading");
+        By catalogItem = By.cssSelector(".js-product-lists .product-tile");
+
+        int finalNumberOfLoadedResults = numberOfLoadedResults;
+        ExpectedCondition<Boolean> newResultsAreLoaded = new ExpectedCondition<Boolean>() {
+
+            public Boolean apply(WebDriver driver) {
+                return (finalNumberOfLoadedResults != waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size());
+            }
+
+            @Override
+            public String toString() {
+                return "New results are not uploaded yet";
+            }
+        };
+
+        while (numberOfLoadedResults <= totalResults) {
+            js.executeScript("arguments[0].scrollIntoView();", waitFor(ExpectedConditions.visibilityOfElementLocated(loadingIndicator)));
+            waitFor(newResultsAreLoaded);
+            numberOfLoadedResults = waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size();
+            System.out.println(String.format("%s >> Number of loaded results is %s of total %s", LocalTime.now(), numberOfLoadedResults, totalResults));
+        }
+        waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size();
+        System.out.println(String.format(">> LOADED %s results of total %s", numberOfLoadedResults, totalResults));
+    }
+
+    private int getTotalNumberOfResults() {
+
+        By totalResults = By.cssSelector(".js-total-results");
+        return Integer.parseInt(waitFor(ExpectedConditions.visibilityOfElementLocated(totalResults))
+                .getText().replaceAll("\\s(\\w)+", ""));
+    }
+
+    public List<Double> getListOfProductPricesFromCatalog() {
+
+        By price = By.cssSelector(".page-content .product-tile__price strong");
+        return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(price)).stream()
+                .map(p -> Double.parseDouble(p.getText().replaceAll("\\s|€|\\.", "").replaceAll(",", ".")))
+                .collect(Collectors.toList());
+    }
+
+    public void openWashingMachinesCatalog() {
+
+        By washingMachinesLink = By.cssSelector(".cat-tile a[href='/wasmachine']");
+        clickOnElementLocated(washingMachinesLink);
+    }
+
+    public void chooseSortingMostWatched() {
+
+        By filterOption = By.cssSelector(".sidebar .product-sorting label");
+        waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(filterOption)).stream()
+                .filter(p -> p.getAttribute("for").equalsIgnoreCase("sort_option_3"))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new).click();
+    }
+
+    public List<Double> getListOfProductReviewScores() {
+
+        By reviewScore = By.cssSelector(".page-content .product-tile__rating.rating-orange .label");
+        return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(reviewScore)).stream()
+                .map(p -> Double.parseDouble(p.getText().replaceAll(",", ".")))
+                .collect(Collectors.toList());
     }
 }

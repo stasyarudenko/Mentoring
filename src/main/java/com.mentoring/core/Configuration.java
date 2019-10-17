@@ -14,15 +14,15 @@ public class Configuration {
     public static Duration TIMEOUT = Duration.ofSeconds(4);
     public static Duration POLLING = Duration.ofSeconds(1);
 
-    private static int counterForAlias = 17;
+    private static int counterForAlias = new Random().nextInt();
 
     public static String getEmailWithAlias() {
 
-        return String.format("anrud.user+%s@gmail.com", new Random().nextInt());
+        return String.format("anrud.user+%s@gmail.com", counterForAlias);
     }
 
     public static String getLoginWithAlias() {
-        return String.join("+", LOGIN, Integer.toString(counterForAlias));
+        return String.format("anrud.user+%s", counterForAlias);
     }
 
 }
