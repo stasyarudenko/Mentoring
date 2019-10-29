@@ -1,9 +1,11 @@
-package com.mentoring.ui;
+package com.mentoring.ui.kieskeurig;
 
+import com.github.javafaker.Faker;
 import com.mentoring.core.Configuration;
-import com.mentoring.pages.gmail.InboxPage;
-import com.mentoring.pages.google.SearchPage;
+import com.mentoring.pages.google.gmail.InboxPage;
+import com.mentoring.pages.google.google.SearchPage;
 import com.mentoring.pages.kieskeurig.KieskeurigPage;
+import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import static com.mentoring.core.Configuration.*;
@@ -17,6 +19,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
     public void testRegisterUserOnKieskeurig() {
 
         KieskeurigPage registrationPage = new KieskeurigPage();
+        Faker faker = new Faker();
         String email = Configuration.getEmailWithAlias();
         String displayName = Configuration.getLoginWithAlias();
 
@@ -24,8 +27,8 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         registrationPage.acceptCookies();
         registrationPage.clickLoginButton();
         registrationPage.enterDisplayName(displayName);
-        registrationPage.enterFirstName(FIRST_NAME);
-        registrationPage.enterLastName(LAST_NAME);
+        registrationPage.enterFirstName(faker.name().firstName());
+        registrationPage.enterLastName(faker.name().lastName());
         registrationPage.enterEmail(email);
         registrationPage.enterPassword(PASSWORD);
         registrationPage.confirmPassword(PASSWORD);

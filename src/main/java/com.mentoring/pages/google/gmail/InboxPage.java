@@ -1,4 +1,4 @@
-package com.mentoring.pages.gmail;
+package com.mentoring.pages.google.gmail;
 
 import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;

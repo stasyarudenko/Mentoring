@@ -1,12 +1,11 @@
-package com.mentoring.pages.google;
+package com.mentoring.pages.google.google;
 
-import com.mentoring.pages.BasePage;
+import com.mentoring.pages.google.GoogleBasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
-public class SearchPage extends BasePage {
+public class SearchPage extends GoogleBasePage {
 
     public void searchFor(String searchCriteria) {
 
