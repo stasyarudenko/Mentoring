@@ -129,8 +129,8 @@ public class KieskeurigPage extends BasePage {
 
     public void loadFullCatalog() {
 
-//        int totalResults = getTotalNumberOfResults();
-        int totalResults = 500;
+        int totalResults = getTotalNumberOfResults();
+//        int totalResults = 100;
         int numberOfLoadedResults = 0;
 
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
@@ -166,7 +166,7 @@ public class KieskeurigPage extends BasePage {
                 .getText().replaceAll("\\s(\\w)+", ""));
     }
 
-    public List<Double> getListOfProductPricesFromCatalog() {
+    public List<Double> getListOfProductsPrices() {
 
         By price = By.cssSelector(".page-content .product-tile__price strong");
         return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(price)).stream()
@@ -180,17 +180,16 @@ public class KieskeurigPage extends BasePage {
         clickOnElementLocated(washingMachinesLink);
     }
 
-    public void chooseSortingMostWatchedAndWaitForResultsToLoad() {
+    public void chooseSortingByReviewScoreAndWaitForResultsToLoad() {
 
         By filterOption = By.cssSelector(".sidebar .product-sorting label");
         waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(filterOption)).stream()
                 .filter(p -> p.getAttribute("for").equalsIgnoreCase("sort_option_3"))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new).click();
-        waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem));
     }
 
-    public List<Double> getListOfProductReviewScores() {
+    public List<Double> getListOfProductsReviewScores() {
 
         By reviewScore = By.cssSelector(".page-content .product-tile__rating.rating-orange .label");
         return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(reviewScore)).stream()
