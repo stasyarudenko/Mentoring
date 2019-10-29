@@ -1,13 +1,13 @@
 package com.mentoring.ui.kieskeurig;
 
-import com.mentoring.pages.kieskeurig.KieskeurigPage;
+import com.mentoring.pages.kieskeurig.MainPage;
 import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
 import java.util.List;
 
-import static com.mentoring.pages.BasePage.visit;
+import static com.mentoring.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SortingAtKieskeurigTest extends BaseTest {
@@ -17,12 +17,13 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortTelephonesByPriceDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        KieskeurigPage kieskeurigPage = new KieskeurigPage();
+        MainPage kieskeurigPage = new MainPage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openSmartphonesCatalog();
         kieskeurigPage.expandFilters();
-        kieskeurigPage.chooseSortingByPriceDescendingAndWaitForResultsToLoad();
+        kieskeurigPage.chooseSortingBy("Prijs - Aflopend");
+        kieskeurigPage.waitForResultsToLoad();
         kieskeurigPage.loadFullCatalog();
 
         List<Double> actualPriceList = kieskeurigPage.getListOfProductsPrices();
@@ -36,13 +37,14 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortWashingMachinesByReviewScoreDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        KieskeurigPage kieskeurigPage = new KieskeurigPage();
+        MainPage kieskeurigPage = new MainPage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openWashingMachinesCatalog();
         kieskeurigPage.expandFilters();
-        kieskeurigPage.chooseSortingByReviewScoreAndWaitForResultsToLoad();
-        kieskeurigPage.loadFullCatalog();
+        kieskeurigPage.chooseSortingBy("Reviewscore");
+        kieskeurigPage.waitForResultsToLoad();
+//        kieskeurigPage.loadFullCatalog();
 
         List<Double> actualReviewScoreList = kieskeurigPage.getListOfProductsReviewScores();
         List<Double> sortedByDescendingList = kieskeurigPage.getListOfProductsReviewScores();

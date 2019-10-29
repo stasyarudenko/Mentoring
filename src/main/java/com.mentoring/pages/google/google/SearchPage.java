@@ -4,6 +4,9 @@ import com.mentoring.pages.google.GoogleBasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.mentoring.core.ConciseAPI.getDriver;
+import static com.mentoring.core.ConciseAPI.waitFor;
+
 
 public class SearchPage extends GoogleBasePage {
 

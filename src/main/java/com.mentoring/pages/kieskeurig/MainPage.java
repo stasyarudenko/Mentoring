@@ -1,8 +1,6 @@
 package com.mentoring.pages.kieskeurig;
 
-import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,7 +10,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-public class KieskeurigPage extends BasePage {
+import static com.mentoring.core.ConciseAPI.js;
+import static com.mentoring.core.ConciseAPI.waitFor;
+
+public class MainPage {
 
     private static By catalogItem = By.cssSelector(".js-product-lists .product-tile");
 
@@ -117,13 +118,16 @@ public class KieskeurigPage extends BasePage {
         clickOnElementLocated(filtersLink);
     }
 
-    public void chooseSortingByPriceDescendingAndWaitForResultsToLoad() {
+    public void chooseSortingBy(String sortingType) {
 
         By filterOption = By.cssSelector(".sidebar .product-sorting label");
         waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(filterOption)).stream()
-                .filter(p -> p.getAttribute("for").equalsIgnoreCase("sort_option_6"))
+                .filter(p -> p.getText().equalsIgnoreCase(sortingType))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new).click();
+    }
+
+    public void waitForResultsToLoad() {
         waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem));
     }
 
@@ -133,7 +137,6 @@ public class KieskeurigPage extends BasePage {
 //        int totalResults = 100;
         int numberOfLoadedResults = 0;
 
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
         By loadingIndicator = By.cssSelector(".pagination__loading");
 
         int finalNumberOfLoadedResults = numberOfLoadedResults;
@@ -180,20 +183,21 @@ public class KieskeurigPage extends BasePage {
         clickOnElementLocated(washingMachinesLink);
     }
 
-    public void chooseSortingByReviewScoreAndWaitForResultsToLoad() {
-
-        By filterOption = By.cssSelector(".sidebar .product-sorting label");
-        waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(filterOption)).stream()
-                .filter(p -> p.getAttribute("for").equalsIgnoreCase("sort_option_3"))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new).click();
-    }
-
     public List<Double> getListOfProductsReviewScores() {
 
         By reviewScore = By.cssSelector(".page-content .product-tile__rating.rating-orange .label");
         return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(reviewScore)).stream()
                 .map(p -> Double.parseDouble(p.getText().replaceAll(",", ".")))
                 .collect(Collectors.toList());
+    }
+
+    private void fillInputWithText(By locator, String text) {
+
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
+    }
+
+    public void clickOnElementLocated(By locator) {
+        waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 }

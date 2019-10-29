@@ -1,12 +1,12 @@
 package com.mentoring.pages.google.google;
 
-import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static com.mentoring.core.ConciseAPI.waitFor;
 
 
-public class ResultsPage extends BasePage {
+public class ResultsPage {
 
     private static final By RESULT_LINK = By.cssSelector(".srg .iUh30");
 

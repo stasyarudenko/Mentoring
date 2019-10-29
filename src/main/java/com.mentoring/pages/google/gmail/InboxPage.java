@@ -1,14 +1,15 @@
 package com.mentoring.pages.google.gmail;
 
-import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.NoSuchElementException;
 
+import static com.mentoring.core.ConciseAPI.waitFor;
 
-public class InboxPage extends BasePage {
+
+public class InboxPage {
 
     private static final By SUBJECT_ON_INBOX_PAGE = By.cssSelector("span.bog");
     private static final By UNREAD_EMAIL_LINE = By.cssSelector(".zA.zE");
@@ -79,7 +80,7 @@ public class InboxPage extends BasePage {
     public void clickRegistrationLinkFromEmailText() {
 
         By linkFromEmailText = By.cssSelector(".ii.gt .a3s a");
-        clickOnElementLocated(linkFromEmailText);
+        waitFor(ExpectedConditions.elementToBeClickable(linkFromEmailText)).click();
     }
 
     public String getFirstEmailSubject() {
