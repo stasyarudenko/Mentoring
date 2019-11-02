@@ -21,7 +21,7 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
-        assertEquals(9, resultsPage.getNumberOfSearchResults(),
+        assertEquals(10, resultsPage.getNumberOfSearchResults(),
                 "The number of search results should be equal to 10");
         assertEquals("https://www.seleniumhq.org", resultsPage.getFirstResultLink(),
                 "The URL for first link is not as expected");
