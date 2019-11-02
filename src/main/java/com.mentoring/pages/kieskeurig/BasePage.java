@@ -1,19 +1,17 @@
 package com.mentoring.pages.kieskeurig;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-import static com.mentoring.core.ConciseAPI.js;
+import static com.mentoring.core.ConciseAPI.getJsExecutor;
 import static com.mentoring.core.ConciseAPI.waitFor;
 
-public class MainPage {
+public class BasePage {
 
     private static By catalogItem = By.cssSelector(".js-product-lists .product-tile");
 
@@ -133,41 +131,43 @@ public class MainPage {
 
     public void loadFullCatalog() {
 
-        int totalResults = getTotalNumberOfResults();
-//        int totalResults = 100;
-        int numberOfLoadedResults = 0;
+//        int totalResults = getTotalNumberOfResults();
+//        int numberOfLoadedResults = 0;
 
         By loadingIndicator = By.cssSelector(".pagination__loading");
 
-        int finalNumberOfLoadedResults = numberOfLoadedResults;
-        ExpectedCondition<Boolean> newResultsAreLoaded = new ExpectedCondition<Boolean>() {
-
-            public Boolean apply(WebDriver driver) {
-                return (finalNumberOfLoadedResults != waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size());
-            }
-
-            @Override
-            public String toString() {
-                return "New results are not uploaded yet";
-            }
-        };
-
-        while (numberOfLoadedResults <= totalResults) {
-            js.executeScript("arguments[0].scrollIntoView();", waitFor(ExpectedConditions.visibilityOfElementLocated(loadingIndicator)));
-            waitFor(newResultsAreLoaded);
-            numberOfLoadedResults = waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size();
-            System.out.println(String.format("%s >> Number of loaded results is %s of total %s", LocalTime.now(), numberOfLoadedResults, totalResults));
-        }
-        waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size();
-        System.out.println(String.format(">> LOADED %s results of total %s", numberOfLoadedResults, totalResults));
+        getJsExecutor().executeScript("arguments[0].scrollIntoView();", waitFor(ExpectedConditions.visibilityOfElementLocated(loadingIndicator)));
+        waitFor(ExpectedConditions.invisibilityOfElementLocated(loadingIndicator));
+//
+//        int finalNumberOfLoadedResults = numberOfLoadedResults;
+//        ExpectedCondition<Boolean> newResultsAreLoaded = new ExpectedCondition<Boolean>() {
+//
+//            public Boolean apply(WebDriver driver) {
+//                return (finalNumberOfLoadedResults != waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size());
+//            }
+//
+//            @Override
+//            public String toString() {
+//                return "New results are not uploaded yet";
+//            }
+//        };
+//
+//        while (numberOfLoadedResults <= totalResults) {
+//            js.executeScript("arguments[0].scrollIntoView();", waitFor(ExpectedConditions.visibilityOfElementLocated(loadingIndicator)));
+//            waitFor(newResultsAreLoaded);
+//            numberOfLoadedResults = waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size();
+//            System.out.println(String.format("%s >> Number of loaded results is %s of total %s", LocalTime.now(), numberOfLoadedResults, totalResults));
+//        }
+//        waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogItem)).size();
+//        System.out.println(String.format(">> LOADED %s results of total %s", numberOfLoadedResults, totalResults));
     }
 
-    private int getTotalNumberOfResults() {
-
-        By totalResults = By.cssSelector(".js-total-results");
-        return Integer.parseInt(waitFor(ExpectedConditions.visibilityOfElementLocated(totalResults))
-                .getText().replaceAll("\\s(\\w)+", ""));
-    }
+//    private int getTotalNumberOfResults() {
+//
+//        By totalResults = By.cssSelector(".js-total-results");
+//        return Integer.parseInt(waitFor(ExpectedConditions.visibilityOfElementLocated(totalResults))
+//                .getText().replaceAll("\\s(\\w)+", ""));
+//    }
 
     public List<Double> getListOfProductsPrices() {
 
@@ -191,7 +191,7 @@ public class MainPage {
                 .collect(Collectors.toList());
     }
 
-    private void fillInputWithText(By locator, String text) {
+    private void fillInputWithText(By locator, String... text) {
 
         waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
         waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
@@ -199,5 +199,14 @@ public class MainPage {
 
     public void clickOnElementLocated(By locator) {
         waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
+    }
+
+    public void chooseFilteringByPriceFromMinToMax(String minPrice, String maxPrice) {
+
+        By minPriceInput = By.cssSelector("#filter_price_min");
+        By maxPriceInput = By.cssSelector("#filter_price_max");
+
+        fillInputWithText(minPriceInput, minPrice);
+        fillInputWithText(maxPriceInput, maxPrice + Keys.ENTER);
     }
 }

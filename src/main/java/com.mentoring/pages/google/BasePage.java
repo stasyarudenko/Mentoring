@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 import static com.mentoring.core.ConciseAPI.waitFor;
 
 
-public class GoogleBasePage {
+public class BasePage {
 
     private By ONE_GOOGLE_MENU = By.cssSelector("a.gb_B[aria-expanded]");
 

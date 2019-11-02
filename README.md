@@ -108,12 +108,13 @@
     Practice:
     - DONE. методы fillInputWithText, clickOnElementLocated - убрать с базовой страницы, так как это не кор методы
     - DONE. переименовать kieskeurig страницы - убрать kieskeurig из названия классов, чтоб не дублировалось
-    - DONE. сделать на базовой странице Actions статиком - изменила методы, нет необходимости в Actions
+    - сделать на базовой странице Actions статик метод, который будет возвращать
     - DONE. разнести на два отдельных метода chooseSortingByPriceDescendingAndWaitForResultsToLoad() - выбрать фильтр и подожать
     - DONE. поменять локатор для фильтра chooseSortingByPriceDescendingAndWaitForResultsToLoad - привязаться к имени лейбы,
         так как других языков не используется в приложении
     - DONE. вынести JavascriptExecutor js = (JavascriptExecutor) getDriver(); на кор страницу, сделать статиком
-    - добавить дополнительный фильтр для тестов сортировки
+    - DONE. добавить дополнительный фильтр для тестов сортировки
+    - переписать метод loadFullCatalog() - ждать, пока кнопка, к которой скроллить, исчезнет
     - manage to run tests via mvn
     - add plugin from skype
     - iterm2 - поставить плагин

@@ -14,7 +14,9 @@ public final class ConciseAPI {
 
     private static WebDriver driver;
 
-    public static JavascriptExecutor js = (JavascriptExecutor) getDriver();
+    public static JavascriptExecutor getJsExecutor() {
+        return (JavascriptExecutor) getDriver();
+    }
 
     public static void setDriver(WebDriver driver) {
         ConciseAPI.driver = driver;

@@ -1,6 +1,6 @@
 package com.mentoring.ui.kieskeurig;
 
-import com.mentoring.pages.kieskeurig.MainPage;
+import com.mentoring.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
@@ -17,12 +17,13 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortTelephonesByPriceDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        MainPage kieskeurigPage = new MainPage();
+        BasePage kieskeurigPage = new BasePage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openSmartphonesCatalog();
         kieskeurigPage.expandFilters();
         kieskeurigPage.chooseSortingBy("Prijs - Aflopend");
+        kieskeurigPage.chooseFilteringByPriceFromMinToMax("10", "30");
         kieskeurigPage.waitForResultsToLoad();
         kieskeurigPage.loadFullCatalog();
 
@@ -37,12 +38,13 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortWashingMachinesByReviewScoreDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        MainPage kieskeurigPage = new MainPage();
+        BasePage kieskeurigPage = new BasePage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openWashingMachinesCatalog();
         kieskeurigPage.expandFilters();
         kieskeurigPage.chooseSortingBy("Reviewscore");
+        kieskeurigPage.chooseFilteringByPriceFromMinToMax("10", "100");
         kieskeurigPage.waitForResultsToLoad();
 //        kieskeurigPage.loadFullCatalog();
 

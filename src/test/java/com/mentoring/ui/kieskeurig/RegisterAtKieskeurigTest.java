@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 import com.mentoring.core.Configuration;
 import com.mentoring.pages.google.gmail.InboxPage;
 import com.mentoring.pages.google.google.SearchPage;
-import com.mentoring.pages.kieskeurig.MainPage;
+import com.mentoring.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
     @Test
     public void testRegisterUserOnKieskeurig() {
 
-        MainPage registrationPage = new MainPage();
+        BasePage registrationPage = new BasePage();
         Faker faker = new Faker();
         String email = Configuration.getEmailWithAlias();
         String displayName = Configuration.getLoginWithAlias();
@@ -48,7 +48,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         inboxPage.openFirstUnreadEmailWhereSubjectContainsText("Kieskeurig");
         inboxPage.clickRegistrationLinkFromEmailText();
 
-        MainPage loginPage = new MainPage();
+        BasePage loginPage = new BasePage();
         navigateToTab(1);
         loginPage.clickLoginButton();
         loginPage.openLoginTabOnModal();

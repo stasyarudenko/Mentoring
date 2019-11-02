@@ -1,6 +1,6 @@
 package com.mentoring.pages.google.google;
 
-import com.mentoring.pages.google.GoogleBasePage;
+import com.mentoring.pages.google.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -8,7 +8,7 @@ import static com.mentoring.core.ConciseAPI.getDriver;
 import static com.mentoring.core.ConciseAPI.waitFor;
 
 
-public class SearchPage extends GoogleBasePage {
+public class SearchPage extends BasePage {
 
     public void searchFor(String searchCriteria) {
 
