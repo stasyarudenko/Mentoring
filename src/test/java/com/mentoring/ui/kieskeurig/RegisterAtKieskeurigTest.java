@@ -41,6 +41,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         searchPage.setLogin(LOGIN);
         searchPage.setPassword(PASSWORD);
         searchPage.openOneGoogle();
+        searchPage.waitForOneGoogleListToBeExpanded();
         searchPage.navigateTo("Gmail");
 
         InboxPage inboxPage = new InboxPage();

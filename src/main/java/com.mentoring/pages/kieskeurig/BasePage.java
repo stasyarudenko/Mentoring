@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import static com.mentoring.core.ConciseAPI.getDriver;
 import static com.mentoring.core.ConciseAPI.getJsExecutor;
 import static com.mentoring.core.ConciseAPI.waitFor;
 
@@ -71,7 +72,9 @@ public class BasePage {
     public void acceptCookies() {
 
         By acceptCookiesButton = By.cssSelector(".modal-consent__right .js-consent-accept");
-        clickOnElementLocated(acceptCookiesButton);
+        if (getDriver().findElement(acceptCookiesButton).isDisplayed()) {
+            clickOnElementLocated(acceptCookiesButton);
+        }
     }
 
     public void openLoginTabOnModal() {

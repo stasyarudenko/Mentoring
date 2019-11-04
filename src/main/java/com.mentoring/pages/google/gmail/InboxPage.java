@@ -80,10 +80,12 @@ public class InboxPage {
     public void clickRegistrationLinkFromEmailText() {
 
         By linkFromEmailText = By.cssSelector(".ii.gt .a3s a");
+        waitFor(ExpectedConditions.visibilityOfElementLocated(linkFromEmailText));
         waitFor(ExpectedConditions.elementToBeClickable(linkFromEmailText)).click();
     }
 
     public String getFirstEmailSubject() {
-        return waitFor(ExpectedConditions.visibilityOfElementLocated(UNREAD_EMAIL_LINE)).findElement(SUBJECT_ON_INBOX_PAGE).getText();
+        return waitFor(ExpectedConditions.visibilityOfElementLocated(UNREAD_EMAIL_LINE))
+                .findElement(SUBJECT_ON_INBOX_PAGE).getText();
     }
 }

@@ -25,7 +25,7 @@ public class SortingAtKieskeurigTest extends BaseTest {
         kieskeurigPage.chooseSortingBy("Prijs - Aflopend");
         kieskeurigPage.chooseFilteringByPriceFromMinToMax("10", "30");
         kieskeurigPage.waitForResultsToLoad();
-        kieskeurigPage.loadFullCatalog();
+//        kieskeurigPage.loadFullCatalog();
 
         List<Double> actualPriceList = kieskeurigPage.getListOfProductsPrices();
         List<Double> sortedByDescendingList = kieskeurigPage.getListOfProductsPrices();
@@ -44,7 +44,7 @@ public class SortingAtKieskeurigTest extends BaseTest {
         kieskeurigPage.openWashingMachinesCatalog();
         kieskeurigPage.expandFilters();
         kieskeurigPage.chooseSortingBy("Reviewscore");
-        kieskeurigPage.chooseFilteringByPriceFromMinToMax("10", "100");
+        kieskeurigPage.chooseFilteringByPriceFromMinToMax("500", "550");
         kieskeurigPage.waitForResultsToLoad();
 //        kieskeurigPage.loadFullCatalog();
 

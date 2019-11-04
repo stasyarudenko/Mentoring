@@ -39,6 +39,10 @@ public class BasePage {
     public void openOneGoogle() {
 
         clickOnElementLocated(ONE_GOOGLE_MENU);
+    }
+
+    public void waitForOneGoogleListToBeExpanded() {
+
         waitFor(ExpectedConditions.attributeToBe(ONE_GOOGLE_MENU, "aria-expanded", "true"));
     }
 

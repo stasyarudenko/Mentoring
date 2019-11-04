@@ -11,7 +11,7 @@ public class Configuration {
     public static final String FIRST_NAME = "anrud";
     public static final String LAST_NAME = "user";
 
-    public static Duration TIMEOUT = Duration.ofSeconds(4);
+    public static Duration TIMEOUT = Duration.ofSeconds(5);
     public static Duration POLLING = Duration.ofSeconds(1);
 
     private static int counterForAlias = new Random().nextInt();

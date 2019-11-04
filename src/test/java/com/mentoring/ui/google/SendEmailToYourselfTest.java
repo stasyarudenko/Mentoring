@@ -23,6 +23,7 @@ public class SendEmailToYourselfTest extends BaseTest {
         searchPage.setLogin(LOGIN);
         searchPage.setPassword(PASSWORD);
         searchPage.openOneGoogle();
+        searchPage.waitForOneGoogleListToBeExpanded();
         searchPage.navigateTo("Gmail");
 
         String subject = Calendar.getInstance().getTime().toString();
