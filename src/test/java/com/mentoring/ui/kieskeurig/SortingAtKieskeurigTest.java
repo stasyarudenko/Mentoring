@@ -1,13 +1,13 @@
 package com.mentoring.ui.kieskeurig;
 
-import com.mentoring.pages.kieskeurig.KieskeurigPage;
+import com.mentoring.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
 import java.util.List;
 
-import static com.mentoring.pages.BasePage.visit;
+import static com.mentoring.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SortingAtKieskeurigTest extends BaseTest {
@@ -17,13 +17,15 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortTelephonesByPriceDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        KieskeurigPage kieskeurigPage = new KieskeurigPage();
+        BasePage kieskeurigPage = new BasePage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openSmartphonesCatalog();
         kieskeurigPage.expandFilters();
-        kieskeurigPage.chooseSortingByPriceDescendingAndWaitForResultsToLoad();
-        kieskeurigPage.loadFullCatalog();
+        kieskeurigPage.chooseSortingBy("Prijs - Aflopend");
+        kieskeurigPage.chooseFilteringByPriceFromMinToMax("10", "30");
+        kieskeurigPage.waitForResultsToLoad();
+//        kieskeurigPage.loadFullCatalog();
 
         List<Double> actualPriceList = kieskeurigPage.getListOfProductsPrices();
         List<Double> sortedByDescendingList = kieskeurigPage.getListOfProductsPrices();
@@ -36,13 +38,15 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortWashingMachinesByReviewScoreDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        KieskeurigPage kieskeurigPage = new KieskeurigPage();
+        BasePage kieskeurigPage = new BasePage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openWashingMachinesCatalog();
         kieskeurigPage.expandFilters();
-        kieskeurigPage.chooseSortingByReviewScoreAndWaitForResultsToLoad();
-        kieskeurigPage.loadFullCatalog();
+        kieskeurigPage.chooseSortingBy("Reviewscore");
+        kieskeurigPage.chooseFilteringByPriceFromMinToMax("500", "550");
+        kieskeurigPage.waitForResultsToLoad();
+//        kieskeurigPage.loadFullCatalog();
 
         List<Double> actualReviewScoreList = kieskeurigPage.getListOfProductsReviewScores();
         List<Double> sortedByDescendingList = kieskeurigPage.getListOfProductsReviewScores();

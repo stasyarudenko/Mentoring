@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 
+import static com.mentoring.core.ConciseAPI.visit;
 import static com.mentoring.core.Configuration.LOGIN;
 import static com.mentoring.core.Configuration.PASSWORD;
-import static com.mentoring.pages.BasePage.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SendEmailToYourselfTest extends BaseTest {
@@ -23,6 +23,7 @@ public class SendEmailToYourselfTest extends BaseTest {
         searchPage.setLogin(LOGIN);
         searchPage.setPassword(PASSWORD);
         searchPage.openOneGoogle();
+        searchPage.waitForOneGoogleListToBeExpanded();
         searchPage.navigateTo("Gmail");
 
         String subject = Calendar.getInstance().getTime().toString();

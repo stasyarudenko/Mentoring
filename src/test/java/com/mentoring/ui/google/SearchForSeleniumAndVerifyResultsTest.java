@@ -5,7 +5,8 @@ import com.mentoring.pages.google.google.SearchPage;
 import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
-import static com.mentoring.pages.BasePage.visit;
+import static com.mentoring.core.ConciseAPI.getTitle;
+import static com.mentoring.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
@@ -20,7 +21,7 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
-        assertEquals(9, resultsPage.getNumberOfSearchResults(),
+        assertEquals(10, resultsPage.getNumberOfSearchResults(),
                 "The number of search results should be equal to 10");
         assertEquals("https://www.seleniumhq.org", resultsPage.getFirstResultLink(),
                 "The URL for first link is not as expected");
@@ -34,7 +35,7 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
 
         ResultsPage resultsPage = new ResultsPage();
         resultsPage.openFirstResultLink();
-        assertEquals("Selenium - Web Browser Automation", resultsPage.getTitle(),
+        assertEquals("Selenium - Web Browser Automation", getTitle(),
                 "The title of first source page is not as expected");
     }
 }

@@ -1,19 +1,20 @@
 package com.mentoring.pages.google;
 
-import com.mentoring.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.NoSuchElementException;
 
+import static com.mentoring.core.ConciseAPI.waitFor;
 
-public class GoogleBasePage extends BasePage {
+
+public class BasePage {
 
     private By ONE_GOOGLE_MENU = By.cssSelector("a.gb_B[aria-expanded]");
 
     public void clickSignInButton() {
 
-        By signInButton = By.cssSelector("div.gb_mg");
+        By signInButton = By.cssSelector(".gb_jg .gb_If");
         clickOnElementLocated(signInButton);
     }
 
@@ -38,6 +39,10 @@ public class GoogleBasePage extends BasePage {
     public void openOneGoogle() {
 
         clickOnElementLocated(ONE_GOOGLE_MENU);
+    }
+
+    public void waitForOneGoogleListToBeExpanded() {
+
         waitFor(ExpectedConditions.attributeToBe(ONE_GOOGLE_MENU, "aria-expanded", "true"));
     }
 
@@ -50,5 +55,15 @@ public class GoogleBasePage extends BasePage {
                 .filter(p -> p.findElement(navMenuItemLabel).getText().equalsIgnoreCase(menuToSelect))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new).click();
+    }
+
+    private void fillInputWithText(By locator, String text) {
+
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
+    }
+
+    private void clickOnElementLocated(By locator) {
+        waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 }

@@ -1,25 +1,25 @@
 package com.mentoring.ui;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import static com.mentoring.pages.BasePage.getDriver;
-import static com.mentoring.pages.BasePage.setDriver;
+import static com.mentoring.core.ConciseAPI.getDriver;
+import static com.mentoring.core.ConciseAPI.setDriver;
 
 public class BaseTest {
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
 
         WebDriverManager.chromedriver().setup();
         setDriver(new ChromeDriver());
         getDriver().manage().window().maximize();
     }
 
-    @AfterEach
-    public void shutDown() {
+    @AfterAll
+    public static void shutDown() {
         getDriver().quit();
     }
 }

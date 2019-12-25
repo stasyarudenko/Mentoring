@@ -4,12 +4,13 @@ import com.github.javafaker.Faker;
 import com.mentoring.core.Configuration;
 import com.mentoring.pages.google.gmail.InboxPage;
 import com.mentoring.pages.google.google.SearchPage;
-import com.mentoring.pages.kieskeurig.KieskeurigPage;
+import com.mentoring.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
+import static com.mentoring.core.ConciseAPI.navigateToTab;
+import static com.mentoring.core.ConciseAPI.visit;
 import static com.mentoring.core.Configuration.*;
-import static com.mentoring.pages.BasePage.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RegisterAtKieskeurigTest extends BaseTest {
@@ -18,7 +19,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
     @Test
     public void testRegisterUserOnKieskeurig() {
 
-        KieskeurigPage registrationPage = new KieskeurigPage();
+        BasePage registrationPage = new BasePage();
         Faker faker = new Faker();
         String email = Configuration.getEmailWithAlias();
         String displayName = Configuration.getLoginWithAlias();
@@ -40,6 +41,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         searchPage.setLogin(LOGIN);
         searchPage.setPassword(PASSWORD);
         searchPage.openOneGoogle();
+        searchPage.waitForOneGoogleListToBeExpanded();
         searchPage.navigateTo("Gmail");
 
         InboxPage inboxPage = new InboxPage();
@@ -47,7 +49,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         inboxPage.openFirstUnreadEmailWhereSubjectContainsText("Kieskeurig");
         inboxPage.clickRegistrationLinkFromEmailText();
 
-        KieskeurigPage loginPage = new KieskeurigPage();
+        BasePage loginPage = new BasePage();
         navigateToTab(1);
         loginPage.clickLoginButton();
         loginPage.openLoginTabOnModal();

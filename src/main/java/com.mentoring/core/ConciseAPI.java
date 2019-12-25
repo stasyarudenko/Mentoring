@@ -1,25 +1,25 @@
-package com.mentoring.pages;
+package com.mentoring.core;
 
-import com.mentoring.core.Configuration;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-
-public class BasePage {
+public final class ConciseAPI {
 
     private static WebDriver driver;
 
-    private Actions actions = new Actions(getDriver());
+    public static JavascriptExecutor getJsExecutor() {
+        return (JavascriptExecutor) getDriver();
+    }
 
     public static void setDriver(WebDriver driver) {
-        BasePage.driver = driver;
+        ConciseAPI.driver = driver;
     }
 
     public static WebDriver getDriver() {
@@ -30,7 +30,7 @@ public class BasePage {
         getDriver().get(url);
     }
 
-    public String getTitle() {
+    public static String getTitle() {
         return getDriver().getTitle();
     }
 
@@ -47,18 +47,9 @@ public class BasePage {
                 .until(condition);
     }
 
-    public void fillInputWithText(By locator, String text) {
-        actions.click(waitFor(ExpectedConditions.visibilityOfElementLocated(locator))).sendKeys(text).perform();
-    }
-
-    public void clickOnElementLocated(By locator) {
-        actions.click(waitFor(ExpectedConditions.elementToBeClickable(locator))).perform();
-    }
-
     public static void navigateToTab(int tab) {
 
         ArrayList<String> tabs = new ArrayList<> (getDriver().getWindowHandles());
         getDriver().switchTo().window(tabs.get(tab));
     }
-
 }
