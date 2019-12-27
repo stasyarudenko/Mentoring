@@ -2,6 +2,7 @@ package com.mentoring.pages.kieskeurig;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
@@ -211,5 +212,23 @@ public class BasePage {
 
         fillInputWithText(minPriceInput, minPrice);
         fillInputWithText(maxPriceInput, maxPrice + Keys.ENTER);
+    }
+
+    public WebElement getLogoElement() {
+
+        By logo = By.cssSelector(".logo");
+        return waitFor(ExpectedConditions.visibilityOfElementLocated(logo));
+    }
+
+    public List<WebElement> getListOFCatalogItems() {
+
+        By catalogList = By.cssSelector(".cat-tile");
+        return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(catalogList));
+    }
+
+    public WebElement getNavigationMenuPanel() {
+
+        By navigationPanel = By.cssSelector(".global-nav.js-menu");
+        return waitFor(ExpectedConditions.visibilityOfElementLocated(navigationPanel));
     }
 }

@@ -7,6 +7,7 @@ import java.util.Random;
 public class Configuration {
 
     public static final String LOGIN = "anrud.user";
+    public static final String EMAIL = "anrud.user@gmail.com";
     public static final String PASSWORD = "anrud.user123";
     public static final String FIRST_NAME = "anrud";
     public static final String LAST_NAME = "user";

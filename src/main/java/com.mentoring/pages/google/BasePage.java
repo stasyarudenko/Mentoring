@@ -3,18 +3,16 @@ package com.mentoring.pages.google;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.NoSuchElementException;
-
 import static com.mentoring.core.ConciseAPI.waitFor;
 
 
 public class BasePage {
 
-    private By ONE_GOOGLE_MENU = By.cssSelector("a.gb_B[aria-expanded]");
+    private By ONE_GOOGLE_MENU = By.cssSelector("a.gb_oc[aria-expanded]");
 
     public void clickSignInButton() {
 
-        By signInButton = By.cssSelector(".gb_jg .gb_If");
+        By signInButton = By.cssSelector(".gb_9d.gb_4.gb_Vc");
         clickOnElementLocated(signInButton);
     }
 
@@ -48,13 +46,8 @@ public class BasePage {
 
     public void navigateTo(String menuToSelect) {
 
-        By navMenuItem = By.className("gb_d");
-        By navMenuItemLabel = By.cssSelector("span.gb_r");
-
-        waitFor(ExpectedConditions.presenceOfAllElementsLocatedBy(navMenuItem)).stream()
-                .filter(p -> p.findElement(navMenuItemLabel).getText().equalsIgnoreCase(menuToSelect))
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new).click();
+        By navMenuItemLabel = By.xpath(String.format("//li/a[contains(@class,'gb_f')]//span[@class='gb_t'][(text()='%s')]", menuToSelect));
+        waitFor(ExpectedConditions.elementToBeClickable(navMenuItemLabel)).click();
     }
 
     private void fillInputWithText(By locator, String text) {

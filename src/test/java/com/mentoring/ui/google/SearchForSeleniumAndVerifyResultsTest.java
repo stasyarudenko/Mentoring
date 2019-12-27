@@ -21,9 +21,10 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
+        String expectedURL = (resultsPage.getNumberOfSearchResults()==10) ? "https://ru.wikipedia.org › wiki › Selenium" :  "https://www.seleniumhq.org";
         assertEquals(10, resultsPage.getNumberOfSearchResults(),
                 "The number of search results should be equal to 10");
-        assertEquals("https://www.seleniumhq.org", resultsPage.getFirstResultLink(),
+        assertEquals(expectedURL, resultsPage.getFirstResultLink(),
                 "The URL for first link is not as expected");
     }
 
@@ -34,8 +35,9 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
+        String expectedTitle = (resultsPage.getNumberOfSearchResults()==10) ? "Selenium — Википедия" : "Selenium - Web Browser Automation";
         resultsPage.openFirstResultLink();
-        assertEquals("Selenium - Web Browser Automation", getTitle(),
+        assertEquals(expectedTitle, getTitle(),
                 "The title of first source page is not as expected");
     }
 }
