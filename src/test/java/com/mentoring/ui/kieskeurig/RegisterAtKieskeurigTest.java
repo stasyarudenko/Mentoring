@@ -17,7 +17,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
 
 
     @Test
-    public void testRegisterUserOnKieskeurig() {
+    public void testRegisterUserAtKieskeurig() {
 
         BasePage registrationPage = new BasePage();
         Faker faker = new Faker();
