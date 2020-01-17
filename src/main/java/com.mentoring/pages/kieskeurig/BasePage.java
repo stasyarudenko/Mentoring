@@ -2,8 +2,10 @@ package com.mentoring.pages.kieskeurig;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -212,4 +214,68 @@ public class BasePage {
         fillInputWithText(minPriceInput, minPrice);
         fillInputWithText(maxPriceInput, maxPrice + Keys.ENTER);
     }
+
+    public WebElement getLogoElement() {
+
+        By logo = By.cssSelector(".logo");
+        return waitFor(ExpectedConditions.presenceOfElementLocated(logo));
+    }
+
+    public List<String> getNavigationMenuItemsList() {
+
+        By globalNavMenuItem = By.cssSelector(".global-nav.js-menu .level-0 span.js-ga-tracking");
+        return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(globalNavMenuItem)).stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getExpectedNavMenuItemsList() {
+        return Arrays.asList("ELEKTRONICA", "HUIS", "AUTO & FIETS", "SPEELGOED & KIDS", "TUIN & KLUSSEN", "VERZORGING", "SPORTEN", "BESPAREN");
+    }
+
+    public List<String> getPopularProductGroupsList() {
+
+        By popularCatalogItem = By.cssSelector(".js-krux-suggest-disabled .cat-tile");
+        return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(popularCatalogItem)).stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getCategoriesList() {
+
+        By categoriesList = By.cssSelector(".cat-tile--collapsible-category .cat-tile a.js-ga-tracking");
+        return waitFor(ExpectedConditions.visibilityOfAllElementsLocatedBy(categoriesList)).stream()
+                .map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    public void verifySearchInputIsDisplayed() {
+
+        By searchInput = By.cssSelector(".search input");
+        waitFor(ExpectedConditions.visibilityOfElementLocated(searchInput));
+    }
+
+    public void verifySubmitButtonIsDisplayed() {
+
+        By submitButton = By.cssSelector(".search button[type='submit']");
+        waitFor(ExpectedConditions.visibilityOfElementLocated(submitButton));
+    }
+
+    public void verifySocialMediaLinkIsDisplayed(String socialLinkName) {
+
+        By socialLink = By.xpath(String.format("//ul[@class='social-links']//a[text()='%s']", socialLinkName));
+        waitFor(ExpectedConditions.visibilityOfElementLocated(socialLink));
+    }
+
+    public void verifyFooterLinkIsDisplayed(String linkName) {
+
+        By footerLink = By.xpath(String.format("//div[@class='site-footer__legal-inner']//a[text()='%s']", linkName));
+        waitFor(ExpectedConditions.visibilityOfElementLocated(footerLink));
+    }
+
+    public void verifyLinkInLinkBlockIsDisplayed(String linkName) {
+
+        By linkInLinkBlock = By.xpath(String.format("//div[@class='link-block js-accordion']//a[text()='%s']", linkName));
+        waitFor(ExpectedConditions.visibilityOfElementLocated(linkInLinkBlock));
+    }
 }
+
