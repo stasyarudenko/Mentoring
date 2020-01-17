@@ -230,9 +230,7 @@ public class BasePage {
     }
 
     public List<String> getExpectedNavMenuItemsList() {
-
-        String[] expectedNavMenuItemsList = {"ELEKTRONICA", "HUIS", "AUTO & FIETS", "SPEELGOED & KIDS", "TUIN & KLUSSEN", "VERZORGING", "SPORTEN", "BESPAREN"};
-        return Arrays.asList(expectedNavMenuItemsList);
+        return Arrays.asList("ELEKTRONICA", "HUIS", "AUTO & FIETS", "SPEELGOED & KIDS", "TUIN & KLUSSEN", "VERZORGING", "SPORTEN", "BESPAREN");
     }
 
     public List<String> getPopularProductGroupsList() {
