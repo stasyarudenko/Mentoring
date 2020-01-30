@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Calendar;
 
 import static com.mentoring.ui.core.ConciseAPI.visit;
+import static com.mentoring.ui.core.Configuration.LOGIN;
+import static com.mentoring.ui.core.Configuration.PASSWORD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SendEmailToYourselfTest extends BaseTest {
@@ -20,8 +22,8 @@ public class SendEmailToYourselfTest extends BaseTest {
         SearchPage searchPage = new SearchPage();
         visit("https://google.com");
         searchPage.clickSignInButton();
-        searchPage.setLogin(Configuration.LOGIN);
-        searchPage.setPassword(Configuration.PASSWORD);
+        searchPage.setLogin(LOGIN);
+        searchPage.setPassword(PASSWORD);
         searchPage.openOneGoogle();
         searchPage.waitForOneGoogleListToBeExpanded();
         searchPage.navigateTo("Gmail");

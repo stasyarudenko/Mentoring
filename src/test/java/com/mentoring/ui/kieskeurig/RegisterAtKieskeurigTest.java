@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import static com.mentoring.ui.core.ConciseAPI.navigateToTab;
 import static com.mentoring.ui.core.ConciseAPI.visit;
+import static com.mentoring.ui.core.Configuration.LOGIN;
+import static com.mentoring.ui.core.Configuration.PASSWORD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RegisterAtKieskeurigTest extends BaseTest {
@@ -32,15 +34,15 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         registrationPage.enterFirstName(faker.name().firstName());
         registrationPage.enterLastName(faker.name().lastName());
         registrationPage.enterEmail(email);
-        registrationPage.enterPassword(Configuration.PASSWORD);
-        registrationPage.confirmPassword(Configuration.PASSWORD);
+        registrationPage.enterPassword(PASSWORD);
+        registrationPage.confirmPassword(PASSWORD);
         registrationPage.clickRegisterButton();
 
         SearchPage searchPage = new SearchPage();
         visit("https://google.com");
         searchPage.clickSignInButton();
-        searchPage.setLogin(Configuration.LOGIN);
-        searchPage.setPassword(Configuration.PASSWORD);
+        searchPage.setLogin(LOGIN);
+        searchPage.setPassword(PASSWORD);
         searchPage.openOneGoogle();
         searchPage.waitForOneGoogleListToBeExpanded();
         searchPage.navigateTo("Gmail");
@@ -55,7 +57,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         loginPage.clickLoginButton();
         loginPage.openLoginTabOnModal();
         loginPage.setLoginEmailAddress(email);
-        loginPage.setLoginPassword(Configuration.PASSWORD);
+        loginPage.setLoginPassword(PASSWORD);
         loginPage.clickLoginButtonOnModal();
         assertEquals(displayName, loginPage.getUserName(), "The displayName is not as expected");
     }
