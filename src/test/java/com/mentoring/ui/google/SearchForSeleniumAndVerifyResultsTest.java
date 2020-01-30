@@ -1,12 +1,12 @@
 package com.mentoring.ui.google;
 
-import com.mentoring.pages.google.google.ResultsPage;
-import com.mentoring.pages.google.google.SearchPage;
+import com.mentoring.ui.pages.google.google.ResultsPage;
+import com.mentoring.ui.pages.google.google.SearchPage;
 import com.mentoring.ui.BaseTest;
+import com.mentoring.ui.core.ConciseAPI;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static com.mentoring.core.ConciseAPI.getTitle;
-import static com.mentoring.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
@@ -17,7 +17,7 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
     @Test
     public void testVerifySearchResultsForSelenium() {
 
-        visit("https://google.com");
+        ConciseAPI.visit("https://google.com");
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
@@ -31,13 +31,13 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
     @Test
     public void testVerifyTitleForFirstSearchResult() {
 
-        visit("https://google.com");
+        ConciseAPI.visit("https://google.com");
         searchPage.searchFor("Selenium");
 
         ResultsPage resultsPage = new ResultsPage();
         String expectedTitle = (resultsPage.getNumberOfSearchResults()==10) ? "Selenium — Википедия" : "Selenium - Web Browser Automation";
         resultsPage.openFirstResultLink();
-        assertEquals(expectedTitle, getTitle(),
+        Assertions.assertEquals(expectedTitle, ConciseAPI.getTitle(),
                 "The title of first source page is not as expected");
     }
 }

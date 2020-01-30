@@ -1,15 +1,16 @@
 package com.mentoring.ui.kieskeurig;
 
-import com.mentoring.pages.kieskeurig.BasePage;
+import com.mentoring.ui.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
+import com.mentoring.ui.pages.kieskeurig.MainPage;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.mentoring.core.ConciseAPI.visit;
-import static com.mentoring.core.Configuration.EMAIL;
-import static com.mentoring.core.Configuration.LOGIN;
-import static com.mentoring.core.Configuration.PASSWORD;
+import static com.mentoring.ui.core.ConciseAPI.visit;
+import static com.mentoring.ui.core.Configuration.EMAIL;
+import static com.mentoring.ui.core.Configuration.LOGIN;
+import static com.mentoring.ui.core.Configuration.PASSWORD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,7 +20,7 @@ public class VerifyUIElementsTest extends BaseTest {
     @Test
     public void testVerifyUIElementsOnMainPage() {
 
-        BasePage loginPage = new BasePage();
+        MainPage loginPage = new MainPage();
 
         visit("https://www.kieskeurig.nl/");
         loginPage.acceptCookies();

@@ -1,4 +1,4 @@
-package com.mentoring.core;
+package com.mentoring.ui.core;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

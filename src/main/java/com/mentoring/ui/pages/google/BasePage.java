@@ -1,9 +1,10 @@
-package com.mentoring.pages.google;
+package com.mentoring.ui.pages.google;
 
+import com.mentoring.ui.core.ConciseAPI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static com.mentoring.core.ConciseAPI.waitFor;
+import static com.mentoring.ui.core.ConciseAPI.waitFor;
 
 
 public class BasePage {
@@ -41,22 +42,22 @@ public class BasePage {
 
     public void waitForOneGoogleListToBeExpanded() {
 
-        waitFor(ExpectedConditions.attributeToBe(ONE_GOOGLE_MENU, "aria-expanded", "true"));
+        ConciseAPI.waitFor(ExpectedConditions.attributeToBe(ONE_GOOGLE_MENU, "aria-expanded", "true"));
     }
 
     public void navigateTo(String menuToSelect) {
 
         By navMenuItemLabel = By.xpath(String.format("//li/a[contains(@class,'gb_f')]//span[@class='gb_t'][(text()='%s')]", menuToSelect));
-        waitFor(ExpectedConditions.elementToBeClickable(navMenuItemLabel)).click();
+        ConciseAPI.waitFor(ExpectedConditions.elementToBeClickable(navMenuItemLabel)).click();
     }
 
     private void fillInputWithText(By locator, String text) {
 
-        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
-        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
+        ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
+        ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
     }
 
     private void clickOnElementLocated(By locator) {
-        waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
+        ConciseAPI.waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 }

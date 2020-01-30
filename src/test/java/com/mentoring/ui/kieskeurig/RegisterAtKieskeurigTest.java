@@ -1,16 +1,15 @@
 package com.mentoring.ui.kieskeurig;
 
 import com.github.javafaker.Faker;
-import com.mentoring.core.Configuration;
-import com.mentoring.pages.google.gmail.InboxPage;
-import com.mentoring.pages.google.google.SearchPage;
-import com.mentoring.pages.kieskeurig.BasePage;
+import com.mentoring.ui.core.Configuration;
+import com.mentoring.ui.pages.google.gmail.InboxPage;
+import com.mentoring.ui.pages.google.google.SearchPage;
+import com.mentoring.ui.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
+import com.mentoring.ui.core.ConciseAPI;
+import com.mentoring.ui.pages.kieskeurig.MainPage;
 import org.junit.jupiter.api.Test;
 
-import static com.mentoring.core.ConciseAPI.navigateToTab;
-import static com.mentoring.core.ConciseAPI.visit;
-import static com.mentoring.core.Configuration.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RegisterAtKieskeurigTest extends BaseTest {
@@ -19,27 +18,27 @@ public class RegisterAtKieskeurigTest extends BaseTest {
     @Test
     public void testRegisterUserAtKieskeurig() {
 
-        BasePage registrationPage = new BasePage();
+        MainPage registrationPage = new MainPage();
         Faker faker = new Faker();
         String email = Configuration.getEmailWithAlias();
         String displayName = Configuration.getLoginWithAlias();
 
-        visit("https://www.kieskeurig.nl/");
+        ConciseAPI.visit("https://www.kieskeurig.nl/");
         registrationPage.acceptCookies();
         registrationPage.clickLoginButton();
         registrationPage.enterDisplayName(displayName);
         registrationPage.enterFirstName(faker.name().firstName());
         registrationPage.enterLastName(faker.name().lastName());
         registrationPage.enterEmail(email);
-        registrationPage.enterPassword(PASSWORD);
-        registrationPage.confirmPassword(PASSWORD);
+        registrationPage.enterPassword(Configuration.PASSWORD);
+        registrationPage.confirmPassword(Configuration.PASSWORD);
         registrationPage.clickRegisterButton();
 
         SearchPage searchPage = new SearchPage();
-        visit("https://google.com");
+        ConciseAPI.visit("https://google.com");
         searchPage.clickSignInButton();
-        searchPage.setLogin(LOGIN);
-        searchPage.setPassword(PASSWORD);
+        searchPage.setLogin(Configuration.LOGIN);
+        searchPage.setPassword(Configuration.PASSWORD);
         searchPage.openOneGoogle();
         searchPage.waitForOneGoogleListToBeExpanded();
         searchPage.navigateTo("Gmail");
@@ -49,12 +48,12 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         inboxPage.openFirstUnreadEmailWhereSubjectContainsText("Kieskeurig");
         inboxPage.clickRegistrationLinkFromEmailText();
 
-        BasePage loginPage = new BasePage();
-        navigateToTab(1);
+        MainPage loginPage = new MainPage();
+        ConciseAPI.navigateToTab(1);
         loginPage.clickLoginButton();
         loginPage.openLoginTabOnModal();
         loginPage.setLoginEmailAddress(email);
-        loginPage.setLoginPassword(PASSWORD);
+        loginPage.setLoginPassword(Configuration.PASSWORD);
         loginPage.clickLoginButtonOnModal();
         assertEquals(displayName, loginPage.getUserName(), "The displayName is not as expected");
     }
