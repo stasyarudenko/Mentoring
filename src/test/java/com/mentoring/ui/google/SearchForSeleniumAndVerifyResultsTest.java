@@ -3,8 +3,6 @@ package com.mentoring.ui.google;
 import com.mentoring.ui.pages.google.google.ResultsPage;
 import com.mentoring.ui.pages.google.google.SearchPage;
 import com.mentoring.ui.BaseTest;
-import com.mentoring.ui.core.ConciseAPI;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static com.mentoring.ui.core.ConciseAPI.getTitle;
@@ -39,7 +37,7 @@ public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {
         ResultsPage resultsPage = new ResultsPage();
         String expectedTitle = (resultsPage.getNumberOfSearchResults()==10) ? "Selenium — Википедия" : "Selenium - Web Browser Automation";
         resultsPage.openFirstResultLink();
-        Assertions.assertEquals(expectedTitle, getTitle(),
+        assertEquals(expectedTitle, getTitle(),
                 "The title of first source page is not as expected");
     }
 }

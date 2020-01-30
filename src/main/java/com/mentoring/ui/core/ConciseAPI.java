@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+
 public final class ConciseAPI {
 
     private static WebDriver driver;
