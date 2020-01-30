@@ -1,15 +1,17 @@
 package com.mentoring.ui.pages.kieskeurig;
 
-import com.mentoring.ui.core.ConciseAPI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static com.mentoring.ui.core.ConciseAPI.getDriver;
+import static com.mentoring.ui.core.ConciseAPI.waitFor;
 
 
 public class BasePage {
 
     public void clickLoginButton() {
 
-        ConciseAPI.waitFor(ExpectedConditions.titleContains("Kieskeurig.nl"));
+        waitFor(ExpectedConditions.titleContains("Kieskeurig.nl"));
 
         By loginButton = By.cssSelector(".site-header__content .js-show-login");
         clickOnElementLocated(loginButton);
@@ -57,13 +59,13 @@ public class BasePage {
         clickOnElementLocated(registerButton);
 
         By messageVerification = By.cssSelector(".modal-login__right .msg");
-        ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(messageVerification));
+        waitFor(ExpectedConditions.visibilityOfElementLocated(messageVerification));
     }
 
     public void acceptCookies() {
 
         By acceptCookiesButton = By.cssSelector(".modal-consent__right .js-consent-accept");
-        if (ConciseAPI.getDriver().findElement(acceptCookiesButton).isDisplayed()) {
+        if (getDriver().findElement(acceptCookiesButton).isDisplayed()) {
             clickOnElementLocated(acceptCookiesButton);
         }
     }
@@ -95,17 +97,17 @@ public class BasePage {
     public String getUserName() {
 
         By userName = By.cssSelector(".site-header__usp .js-username");
-        return ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(userName)).getText();
+        return waitFor(ExpectedConditions.visibilityOfElementLocated(userName)).getText();
     }
 
     public void fillInputWithText(By locator, String... text) {
 
-        ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
-        ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
     }
 
     public void clickOnElementLocated(By locator) {
-        ConciseAPI.waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
+        waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 }
 

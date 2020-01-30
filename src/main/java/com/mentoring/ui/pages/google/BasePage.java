@@ -42,22 +42,22 @@ public class BasePage {
 
     public void waitForOneGoogleListToBeExpanded() {
 
-        ConciseAPI.waitFor(ExpectedConditions.attributeToBe(ONE_GOOGLE_MENU, "aria-expanded", "true"));
+        waitFor(ExpectedConditions.attributeToBe(ONE_GOOGLE_MENU, "aria-expanded", "true"));
     }
 
     public void navigateTo(String menuToSelect) {
 
         By navMenuItemLabel = By.xpath(String.format("//li/a[contains(@class,'gb_f')]//span[@class='gb_t'][(text()='%s')]", menuToSelect));
-        ConciseAPI.waitFor(ExpectedConditions.elementToBeClickable(navMenuItemLabel)).click();
+        waitFor(ExpectedConditions.elementToBeClickable(navMenuItemLabel)).click();
     }
 
     private void fillInputWithText(By locator, String text) {
 
-        ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
-        ConciseAPI.waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).click();
+        waitFor(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(text);
     }
 
     private void clickOnElementLocated(By locator) {
-        ConciseAPI.waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
+        waitFor(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 }

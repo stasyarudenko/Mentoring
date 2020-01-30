@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.mentoring.ui.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SortingAtKieskeurigTest extends BaseTest {
@@ -16,7 +17,7 @@ public class SortingAtKieskeurigTest extends BaseTest {
     @Test
     public void testSortTelephonesByPriceDescendingOrder() {
 
-        ConciseAPI.visit("https://www.kieskeurig.nl/");
+        visit("https://www.kieskeurig.nl/");
         MainPage kieskeurigPage = new MainPage();
 
         kieskeurigPage.acceptCookies();
@@ -37,7 +38,7 @@ public class SortingAtKieskeurigTest extends BaseTest {
     @Test
     public void testSortWashingMachinesByReviewScoreDescendingOrder() {
 
-        ConciseAPI.visit("https://www.kieskeurig.nl/");
+        visit("https://www.kieskeurig.nl/");
         MainPage kieskeurigPage = new MainPage();
 
         kieskeurigPage.acceptCookies();

@@ -10,6 +10,8 @@ import com.mentoring.ui.core.ConciseAPI;
 import com.mentoring.ui.pages.kieskeurig.MainPage;
 import org.junit.jupiter.api.Test;
 
+import static com.mentoring.ui.core.ConciseAPI.navigateToTab;
+import static com.mentoring.ui.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RegisterAtKieskeurigTest extends BaseTest {
@@ -23,7 +25,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         String email = Configuration.getEmailWithAlias();
         String displayName = Configuration.getLoginWithAlias();
 
-        ConciseAPI.visit("https://www.kieskeurig.nl/");
+        visit("https://www.kieskeurig.nl/");
         registrationPage.acceptCookies();
         registrationPage.clickLoginButton();
         registrationPage.enterDisplayName(displayName);
@@ -35,7 +37,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         registrationPage.clickRegisterButton();
 
         SearchPage searchPage = new SearchPage();
-        ConciseAPI.visit("https://google.com");
+        visit("https://google.com");
         searchPage.clickSignInButton();
         searchPage.setLogin(Configuration.LOGIN);
         searchPage.setPassword(Configuration.PASSWORD);
@@ -49,7 +51,7 @@ public class RegisterAtKieskeurigTest extends BaseTest {
         inboxPage.clickRegistrationLinkFromEmailText();
 
         MainPage loginPage = new MainPage();
-        ConciseAPI.navigateToTab(1);
+        navigateToTab(1);
         loginPage.clickLoginButton();
         loginPage.openLoginTabOnModal();
         loginPage.setLoginEmailAddress(email);

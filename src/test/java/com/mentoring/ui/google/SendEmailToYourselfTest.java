@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 
+import static com.mentoring.ui.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SendEmailToYourselfTest extends BaseTest {
@@ -17,7 +18,7 @@ public class SendEmailToYourselfTest extends BaseTest {
     public void testSendEmailToYourselfAndVerifyItWasReceived() {
 
         SearchPage searchPage = new SearchPage();
-        ConciseAPI.visit("https://google.com");
+        visit("https://google.com");
         searchPage.clickSignInButton();
         searchPage.setLogin(Configuration.LOGIN);
         searchPage.setPassword(Configuration.PASSWORD);
