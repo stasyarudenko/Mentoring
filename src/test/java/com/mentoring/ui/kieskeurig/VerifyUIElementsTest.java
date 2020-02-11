@@ -1,6 +1,5 @@
 package com.mentoring.ui.kieskeurig;
 
-import com.mentoring.ui.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
 import com.mentoring.ui.pages.kieskeurig.MainPage;
 import org.junit.jupiter.api.Test;
@@ -8,9 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.mentoring.ui.core.ConciseAPI.visit;
-import static com.mentoring.ui.core.Configuration.EMAIL;
-import static com.mentoring.ui.core.Configuration.LOGIN;
-import static com.mentoring.ui.core.Configuration.PASSWORD;
+import static com.mentoring.ui.core.Configuration.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

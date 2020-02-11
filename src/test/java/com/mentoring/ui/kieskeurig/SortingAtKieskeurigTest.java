@@ -1,7 +1,6 @@
 package com.mentoring.ui.kieskeurig;
 
 import com.mentoring.ui.BaseTest;
-import com.mentoring.ui.core.ConciseAPI;
 import com.mentoring.ui.pages.kieskeurig.MainPage;
 import org.junit.jupiter.api.Test;
 

@@ -4,9 +4,7 @@ import com.github.javafaker.Faker;
 import com.mentoring.ui.core.Configuration;
 import com.mentoring.ui.pages.google.gmail.InboxPage;
 import com.mentoring.ui.pages.google.google.SearchPage;
-import com.mentoring.ui.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
-import com.mentoring.ui.core.ConciseAPI;
 import com.mentoring.ui.pages.kieskeurig.MainPage;
 import org.junit.jupiter.api.Test;
 
