@@ -18,7 +18,7 @@ public class VerifyUsersListTest extends BaseTest {
     private static final String PUBLIC_API_USER_ID = "/public-api/users/%s";
 
     @Test
-    public void testStatusResponseWithAuthentification() {
+    public void testStatusResponseWithAuthentication() {
 
         httpAuthorizedClient()
                 .get(PUBLIC_API_USERS)
@@ -27,9 +27,9 @@ public class VerifyUsersListTest extends BaseTest {
     }
 
     @Test
-    public void testStatusResponseWithoutAuthentification() {
+    public void testStatusResponseWithoutAuthentication() {
 
-        String responseBodyText = RestAssured.get("/public-api/users").getBody().prettyPrint();
+        String responseBodyText = RestAssured.get(PUBLIC_API_USERS).getBody().prettyPrint();
 
         RestAssured.when()
                 .get(PUBLIC_API_USERS)
