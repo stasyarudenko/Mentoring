@@ -20,7 +20,7 @@ public class VerifyUsersListTest extends BaseTest {
     @Test
     public void testStatusResponseWithAuthentification() {
 
-        AUTHORIZED_REQUEST_SCECIFICATION
+        httpAuthorizedClient()
                 .get(PUBLIC_API_USERS)
                 .then()
                 .assertThat().statusCode(200);
@@ -42,7 +42,7 @@ public class VerifyUsersListTest extends BaseTest {
     @Test
     public void testValidationSchema() {
 
-        AUTHORIZED_REQUEST_SCECIFICATION
+        httpAuthorizedClient()
                 .get(PUBLIC_API_USERS)
                 .then()
                 .assertThat()
@@ -60,7 +60,7 @@ public class VerifyUsersListTest extends BaseTest {
                 "\"status\":\"active\"\n" +
                 "}";
 
-        Response response = AUTHORIZED_REQUEST_SCECIFICATION
+        Response response = httpAuthorizedClient()
                 .contentType(ContentType.JSON)
                 .body(requestBody)
                 .post(PUBLIC_API_USERS);
@@ -72,7 +72,7 @@ public class VerifyUsersListTest extends BaseTest {
         String createdUserId = StringUtils.substringBetween(response.getBody().prettyPrint(), "\"id\": \"", "\",\n");
 
         try {
-            AUTHORIZED_REQUEST_SCECIFICATION
+            httpAuthorizedClient()
                     .get(String.format(PUBLIC_API_USER_ID, createdUserId))
                     .then()
                     .assertThat()
@@ -87,7 +87,7 @@ public class VerifyUsersListTest extends BaseTest {
 
     private void deleteUserWithId(String id) {
 
-        AUTHORIZED_REQUEST_SCECIFICATION
+        httpAuthorizedClient()
                 .delete(String.format(PUBLIC_API_USER_ID, id))
                 .then()
                 .assertThat()
@@ -96,7 +96,7 @@ public class VerifyUsersListTest extends BaseTest {
 
     private void verifyUserWithIdIsDeleted(String id) {
 
-        AUTHORIZED_REQUEST_SCECIFICATION
+        httpAuthorizedClient()
                 .get(String.format(PUBLIC_API_USER_ID, id))
                 .then()
                 .assertThat()

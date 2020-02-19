@@ -1,4 +1,4 @@
-package com.mentoring.api;
+package com.mentoring.api.gorest;
 
 public class Configuration {
 
