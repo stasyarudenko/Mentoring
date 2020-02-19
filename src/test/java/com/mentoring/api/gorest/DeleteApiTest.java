@@ -1,7 +1,6 @@
 package com.mentoring.api.gorest;
 
 import io.restassured.response.Response;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -24,8 +23,7 @@ public class DeleteApiTest extends BaseTest {
         Response createdUserResponse = createUser();
         verifyResponseBodyCode(createdUserResponse, CODE_201);
 
-        String userId = StringUtils.substringBetween(createdUserResponse.getBody().prettyPrint(), "\"id\": \"", "\",\n");
-        System.out.println("-------------\nUser ID: " + userId + "\n-------------");
+        String userId = getUserIdFromResponse(createdUserResponse);
 
         try {
             verifyResponseBodyCode(deleteRequestTo(String.format(PUBLIC_API_USER_ID, userId), httpAuthorizedClient()), CODE_204);
@@ -40,9 +38,10 @@ public class DeleteApiTest extends BaseTest {
     @Test
     public void testDeleteNonExistingUser() {
 
-        int randomUserID = new Random().nextInt();
+        String randomUserID = String.valueOf(new Random().nextInt());
         System.out.println("-------------\nUser ID: " + randomUserID + "\n-------------");
         verifyUserWithIdDoesNotExist(randomUserID);
+        deleteRequestTo(String.format(PUBLIC_API_USER_ID, randomUserID), httpAuthorizedClient()).then().assertThat().statusCode(404);
     }
 
 }

@@ -32,8 +32,12 @@ public class SystemApi {
         }
     }
 
-    private static Response getRequestTo(String url) {
+    public static Response getRequestTo(String url) {
         return RestAssured.get(url);
+    }
+
+    public static Response getRequestTo(String url, RequestSpecification client) {
+        return client.get(url);
     }
 
     public static Response deleteRequestTo(String url) {

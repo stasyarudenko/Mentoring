@@ -4,11 +4,12 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 
+
 import static com.mentoring.api.gorest.Configuration.TOKEN;
-import static com.mentoring.api.gorest.SystemApi.PUBLIC_API_USERS;
-import static com.mentoring.api.gorest.SystemApi.PUBLIC_API_USER_ID;
+import static com.mentoring.api.gorest.SystemApi.*;
 import static org.hamcrest.Matchers.containsString;
 
 
@@ -49,10 +50,16 @@ public class BaseTest {
                 .post(PUBLIC_API_USERS);
     }
 
+    public String getUserIdFromResponse(Response response) {
+
+        String userId = StringUtils.substringBetween(response.getBody().prettyPrint(), "\"id\": \"", "\",\n");
+        System.out.println("-------------\nUser ID: " + userId + "\n-------------");
+        return userId;
+    }
+
     public void deleteUserWithId(String id) {
 
-        httpAuthorizedClient()
-                .delete(String.format(PUBLIC_API_USER_ID, id))
+        deleteRequestTo(String.format(PUBLIC_API_USER_ID, id), httpAuthorizedClient())
                 .then()
                 .assertThat()
                 .statusCode(200);
@@ -60,11 +67,6 @@ public class BaseTest {
 
     public void verifyUserWithIdDoesNotExist(String id) {
 
-        verifyResponseBodyCode(httpAuthorizedClient().get(String.format(PUBLIC_API_USER_ID, id)), "Object not found: " + id);
-    }
-
-    public void verifyUserWithIdDoesNotExist(int id) {
-
-        verifyResponseBodyCode(httpAuthorizedClient().get(String.format(PUBLIC_API_USER_ID, id)), "Object not found: " + id);
+        verifyResponseBodyCode(getRequestTo(String.format(PUBLIC_API_USER_ID, id), httpAuthorizedClient()), "Object not found: " + id);
     }
 }

@@ -1,48 +1,32 @@
 package com.mentoring.api.gorest;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import static com.mentoring.api.gorest.SystemApi.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class VerifyUsersListTest extends BaseTest {
 
-    private static final String PUBLIC_API_USERS = "/public-api/users";
+    @Test
+    public void testStatusResponseWithoutAuthentication() {
 
-    private static final String PUBLIC_API_USER_ID = "/public-api/users/%s";
+        verifyResponseBodyCode(getRequestTo(PUBLIC_API_USERS), CODE_401);
+    }
 
     @Test
     public void testStatusResponseWithAuthentication() {
 
-        httpAuthorizedClient()
-                .get(PUBLIC_API_USERS)
+        getRequestTo(PUBLIC_API_USERS, httpAuthorizedClient())
                 .then()
                 .assertThat().statusCode(200);
     }
 
     @Test
-    public void testStatusResponseWithoutAuthentication() {
-
-        String responseBodyText = RestAssured.get(PUBLIC_API_USERS).getBody().prettyPrint();
-
-        RestAssured.when()
-                .get(PUBLIC_API_USERS)
-                .then()
-                .assertThat()
-                .body(containsString("\"code\":401"));
-        assertTrue(responseBodyText.contains("\"message\": \"Authentication failed.\""), "'message' is not as expected");
-    }
-
-    @Test
     public void testValidationSchema() {
 
-        httpAuthorizedClient()
-                .get(PUBLIC_API_USERS)
+        getRequestTo(PUBLIC_API_USERS, httpAuthorizedClient())
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("users_schema.json"));
@@ -52,21 +36,20 @@ public class VerifyUsersListTest extends BaseTest {
     public void testVerifyUserCreationResponseSchema() {
 
         Response createdUserResponse = createUser();
-        verifyResponseBodyCode(createdUserResponse,"\"code\":201");
+        verifyResponseBodyCode(createdUserResponse, CODE_201);
 
-        String createdUserId = StringUtils.substringBetween(createdUserResponse.getBody().prettyPrint(), "\"id\": \"", "\",\n");
+        String userId = getUserIdFromResponse(createdUserResponse);
 
         try {
-            httpAuthorizedClient()
-                    .get(String.format(PUBLIC_API_USER_ID, createdUserId))
+            createdUserResponse
                     .then()
                     .assertThat()
                     .body(matchesJsonSchemaInClasspath("user_creation_response_schema.json"));
         } catch (AssertionError e) {
             throw (new AssertionError(e));
         } finally {
-            deleteUserWithId(createdUserId);
-            verifyUserWithIdDoesNotExist(createdUserId);
+            deleteUserWithId(userId);
+            verifyUserWithIdDoesNotExist(userId);
         }
     }
 }
