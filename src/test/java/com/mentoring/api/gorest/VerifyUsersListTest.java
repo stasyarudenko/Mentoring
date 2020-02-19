@@ -1,7 +1,6 @@
 package com.mentoring.api.gorest;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -52,24 +51,10 @@ public class VerifyUsersListTest extends BaseTest {
     @Test
     public void testVerifyUserCreationResponseSchema() {
 
-        String requestBody = "{\n" +
-                "\"first_name\":\"Anrud\",\n" +
-                "\"last_name\":\"Test\",\n" +
-                "\"gender\":\"male\",\n" +
-                "\"email\":\"anrud02@roberts.com\",\n" +
-                "\"status\":\"active\"\n" +
-                "}";
+        Response createdUserResponse = createUser();
+        verifyResponseBodyCode(createdUserResponse,"\"code\":201");
 
-        Response response = httpAuthorizedClient()
-                .contentType(ContentType.JSON)
-                .body(requestBody)
-                .post(PUBLIC_API_USERS);
-
-        response.then()
-                .assertThat()
-                .body(containsString("\"code\":201"));
-
-        String createdUserId = StringUtils.substringBetween(response.getBody().prettyPrint(), "\"id\": \"", "\",\n");
+        String createdUserId = StringUtils.substringBetween(createdUserResponse.getBody().prettyPrint(), "\"id\": \"", "\",\n");
 
         try {
             httpAuthorizedClient()
@@ -81,25 +66,7 @@ public class VerifyUsersListTest extends BaseTest {
             throw (new AssertionError(e));
         } finally {
             deleteUserWithId(createdUserId);
-            verifyUserWithIdIsDeleted(createdUserId);
+            verifyUserWithIdDoesNotExist(createdUserId);
         }
-    }
-
-    private void deleteUserWithId(String id) {
-
-        httpAuthorizedClient()
-                .delete(String.format(PUBLIC_API_USER_ID, id))
-                .then()
-                .assertThat()
-                .statusCode(200);
-    }
-
-    private void verifyUserWithIdIsDeleted(String id) {
-
-        httpAuthorizedClient()
-                .get(String.format(PUBLIC_API_USER_ID, id))
-                .then()
-                .assertThat()
-                .body(containsString("Object not found: " + id));
     }
 }
