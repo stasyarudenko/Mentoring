@@ -1,11 +1,11 @@
-package com.mentoring.pages.google.google;
+package com.mentoring.ui.pages.google.google;
 
-import com.mentoring.pages.google.BasePage;
+import com.mentoring.ui.pages.google.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static com.mentoring.core.ConciseAPI.getDriver;
-import static com.mentoring.core.ConciseAPI.waitFor;
+import static com.mentoring.ui.core.ConciseAPI.getDriver;
+import static com.mentoring.ui.core.ConciseAPI.waitFor;
 
 
 public class SearchPage extends BasePage {

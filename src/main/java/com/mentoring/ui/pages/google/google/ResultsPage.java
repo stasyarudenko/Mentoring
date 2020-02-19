@@ -1,9 +1,9 @@
-package com.mentoring.pages.google.google;
+package com.mentoring.ui.pages.google.google;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static com.mentoring.core.ConciseAPI.waitFor;
+import static com.mentoring.ui.core.ConciseAPI.waitFor;
 
 
 public class ResultsPage {

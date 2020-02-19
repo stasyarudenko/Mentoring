@@ -1,12 +1,12 @@
 package com.mentoring.ui.google;
 
-import com.mentoring.pages.google.google.ResultsPage;
-import com.mentoring.pages.google.google.SearchPage;
+import com.mentoring.ui.pages.google.google.ResultsPage;
+import com.mentoring.ui.pages.google.google.SearchPage;
 import com.mentoring.ui.BaseTest;
 import org.junit.jupiter.api.Test;
 
-import static com.mentoring.core.ConciseAPI.getTitle;
-import static com.mentoring.core.ConciseAPI.visit;
+import static com.mentoring.ui.core.ConciseAPI.getTitle;
+import static com.mentoring.ui.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SearchForSeleniumAndVerifyResultsTest extends BaseTest {

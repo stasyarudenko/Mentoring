@@ -1,13 +1,13 @@
 package com.mentoring.ui.kieskeurig;
 
-import com.mentoring.pages.kieskeurig.BasePage;
 import com.mentoring.ui.BaseTest;
+import com.mentoring.ui.pages.kieskeurig.MainPage;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
 import java.util.List;
 
-import static com.mentoring.core.ConciseAPI.visit;
+import static com.mentoring.ui.core.ConciseAPI.visit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SortingAtKieskeurigTest extends BaseTest {
@@ -17,7 +17,7 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortTelephonesByPriceDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        BasePage kieskeurigPage = new BasePage();
+        MainPage kieskeurigPage = new MainPage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openSmartphonesCatalog();
@@ -38,7 +38,7 @@ public class SortingAtKieskeurigTest extends BaseTest {
     public void testSortWashingMachinesByReviewScoreDescendingOrder() {
 
         visit("https://www.kieskeurig.nl/");
-        BasePage kieskeurigPage = new BasePage();
+        MainPage kieskeurigPage = new MainPage();
 
         kieskeurigPage.acceptCookies();
         kieskeurigPage.openWashingMachinesCatalog();

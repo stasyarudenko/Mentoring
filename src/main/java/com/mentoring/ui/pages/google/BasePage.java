@@ -1,9 +1,10 @@
-package com.mentoring.pages.google;
+package com.mentoring.ui.pages.google;
 
+import com.mentoring.ui.core.ConciseAPI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static com.mentoring.core.ConciseAPI.waitFor;
+import static com.mentoring.ui.core.ConciseAPI.waitFor;
 
 
 public class BasePage {

@@ -5,8 +5,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import static com.mentoring.core.ConciseAPI.getDriver;
-import static com.mentoring.core.ConciseAPI.setDriver;
+import static com.mentoring.ui.core.ConciseAPI.getDriver;
+import static com.mentoring.ui.core.ConciseAPI.setDriver;
+
 
 public class BaseTest {
 

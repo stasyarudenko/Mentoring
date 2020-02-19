@@ -1,4 +1,4 @@
-package com.mentoring.core;
+package com.mentoring.ui.core;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
 
 public final class ConciseAPI {
 

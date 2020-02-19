@@ -1,4 +1,4 @@
-package com.mentoring.pages.google.gmail;
+package com.mentoring.ui.pages.google.gmail;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.NoSuchElementException;
 
-import static com.mentoring.core.ConciseAPI.waitFor;
+import static com.mentoring.ui.core.ConciseAPI.waitFor;
 
 
 public class InboxPage {
