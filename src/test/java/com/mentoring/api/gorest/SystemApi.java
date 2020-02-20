@@ -9,7 +9,7 @@ public class SystemApi {
 
     public static final String PUBLIC_API_USERS = "/public-api/users";
 
-    public static final String PUBLIC_API_USER_ID = "/public-api/users/%s";
+    public static final String PUBLIC_API_USER_ID = "/public-api/users/";
 
     public static final String CODE_204 = "\"code\":204";
 

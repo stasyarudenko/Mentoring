@@ -60,7 +60,7 @@ public class BaseTest {
 
     public void deleteUserWithId(String id) {
 
-        sendAuthorizedRequestTo("delete", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, id))
+        sendAuthorizedRequestTo("delete", httpAuthorizedClient(), PUBLIC_API_USER_ID + id)
                 .then()
                 .assertThat()
                 .statusCode(200);
@@ -69,7 +69,7 @@ public class BaseTest {
     public void verifyUserWithIdDoesNotExist(String id) {
 
         verifyResponseBodyCode(
-                sendAuthorizedRequestTo("get", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, id)), "Object not found: " + id);
+                sendAuthorizedRequestTo("get", httpAuthorizedClient(), PUBLIC_API_USER_ID + id), "Object not found: " + id);
     }
 
     public void verifyResponseSchema(Response response, String jsonSchemaPath) {

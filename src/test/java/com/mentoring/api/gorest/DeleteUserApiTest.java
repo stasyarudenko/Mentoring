@@ -15,7 +15,7 @@ public class DeleteUserApiTest extends BaseTest {
     public void testDeleteStatusResponseWithoutAuthentication() {
 
         verifyResponseBodyCode(
-                sendRequestTo("delete", String.format(PUBLIC_API_USER_ID, 123)), CODE_401);
+                sendRequestTo("delete", PUBLIC_API_USER_ID + "123"), CODE_401);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class DeleteUserApiTest extends BaseTest {
 
         try {
             verifyResponseBodyCode(
-                    sendAuthorizedRequestTo("delete", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, userId)), CODE_204);
+                    sendAuthorizedRequestTo("delete", httpAuthorizedClient(), PUBLIC_API_USER_ID + userId), CODE_204);
         } catch (AssertionError e) {
             throw new AssertionError(e);
         } finally {
@@ -43,7 +43,7 @@ public class DeleteUserApiTest extends BaseTest {
         String randomUserID = String.valueOf(new Random().nextInt());
         System.out.println("-------------\nUser ID: " + randomUserID + "\n-------------");
         verifyUserWithIdDoesNotExist(randomUserID);
-        sendAuthorizedRequestTo("delete", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, randomUserID))
+        sendAuthorizedRequestTo("delete", httpAuthorizedClient(), PUBLIC_API_USER_ID + randomUserID)
                 .then()
                 .assertThat()
                 .statusCode(404);
