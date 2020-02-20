@@ -17,6 +17,7 @@ public class DeleteUserApiTest extends BaseTest {
         verifyResponseBodyCode(
                 sendRequestTo("delete", String.format(PUBLIC_API_USER_ID, 123)), CODE_401);
     }
+
     @Test
     public void testDeleteStatusResponseWithAuthentication() {
 
