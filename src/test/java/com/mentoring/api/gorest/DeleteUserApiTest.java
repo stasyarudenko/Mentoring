@@ -8,14 +8,14 @@ import java.util.Random;
 import static com.mentoring.api.gorest.SystemApi.*;
 
 
-public class DeleteApiTest extends BaseTest {
+public class DeleteUserApiTest extends BaseTest {
 
 
     @Test
     public void testDeleteStatusResponseWithoutAuthentication() {
 
-        verifyResponseBodyCode(sendRequestTo("DELETE",
-                String.format(PUBLIC_API_USER_ID, 123)), CODE_401);
+        verifyResponseBodyCode(
+                sendRequestTo("delete", String.format(PUBLIC_API_USER_ID, 123)), CODE_401);
     }
     @Test
     public void testDeleteStatusResponseWithAuthentication() {
@@ -26,7 +26,8 @@ public class DeleteApiTest extends BaseTest {
         String userId = getUserIdFromResponse(createdUserResponse);
 
         try {
-            verifyResponseBodyCode(deleteRequestTo(String.format(PUBLIC_API_USER_ID, userId), httpAuthorizedClient()), CODE_204);
+            verifyResponseBodyCode(
+                    sendAuthorizedRequestTo("delete", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, userId)), CODE_204);
         } catch (AssertionError e) {
             throw new AssertionError(e);
         } finally {
@@ -41,7 +42,10 @@ public class DeleteApiTest extends BaseTest {
         String randomUserID = String.valueOf(new Random().nextInt());
         System.out.println("-------------\nUser ID: " + randomUserID + "\n-------------");
         verifyUserWithIdDoesNotExist(randomUserID);
-        deleteRequestTo(String.format(PUBLIC_API_USER_ID, randomUserID), httpAuthorizedClient()).then().assertThat().statusCode(404);
+        sendAuthorizedRequestTo("delete", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, randomUserID))
+                .then()
+                .assertThat()
+                .statusCode(404);
     }
 
 }

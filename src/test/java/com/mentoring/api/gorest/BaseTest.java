@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import static com.mentoring.api.gorest.Configuration.TOKEN;
 import static com.mentoring.api.gorest.SystemApi.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.containsString;
 
 
@@ -59,7 +60,7 @@ public class BaseTest {
 
     public void deleteUserWithId(String id) {
 
-        deleteRequestTo(String.format(PUBLIC_API_USER_ID, id), httpAuthorizedClient())
+        sendAuthorizedRequestTo("delete", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, id))
                 .then()
                 .assertThat()
                 .statusCode(200);
@@ -67,6 +68,14 @@ public class BaseTest {
 
     public void verifyUserWithIdDoesNotExist(String id) {
 
-        verifyResponseBodyCode(getRequestTo(String.format(PUBLIC_API_USER_ID, id), httpAuthorizedClient()), "Object not found: " + id);
+        verifyResponseBodyCode(
+                sendAuthorizedRequestTo("get", httpAuthorizedClient(), String.format(PUBLIC_API_USER_ID, id)), "Object not found: " + id);
+    }
+
+    public void verifyResponseSchema(Response response, String jsonSchemaPath) {
+
+        response.then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath(jsonSchemaPath));
     }
 }

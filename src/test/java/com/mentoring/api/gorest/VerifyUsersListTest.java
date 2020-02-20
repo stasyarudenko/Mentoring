@@ -4,7 +4,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static com.mentoring.api.gorest.SystemApi.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 
 public class VerifyUsersListTest extends BaseTest {
@@ -12,13 +11,13 @@ public class VerifyUsersListTest extends BaseTest {
     @Test
     public void testStatusResponseWithoutAuthentication() {
 
-        verifyResponseBodyCode(getRequestTo(PUBLIC_API_USERS), CODE_401);
+        verifyResponseBodyCode(sendRequestTo("get", PUBLIC_API_USERS), CODE_401);
     }
 
     @Test
     public void testStatusResponseWithAuthentication() {
 
-        getRequestTo(PUBLIC_API_USERS, httpAuthorizedClient())
+        sendAuthorizedRequestTo("get", httpAuthorizedClient(), PUBLIC_API_USERS)
                 .then()
                 .assertThat().statusCode(200);
     }
@@ -26,10 +25,8 @@ public class VerifyUsersListTest extends BaseTest {
     @Test
     public void testValidationSchema() {
 
-        getRequestTo(PUBLIC_API_USERS, httpAuthorizedClient())
-                .then()
-                .assertThat()
-                .body(matchesJsonSchemaInClasspath("users_schema.json"));
+        verifyResponseSchema(
+                sendAuthorizedRequestTo("get", httpAuthorizedClient(), PUBLIC_API_USERS), "users_schema.json");
     }
 
     @Test
@@ -41,10 +38,7 @@ public class VerifyUsersListTest extends BaseTest {
         String userId = getUserIdFromResponse(createdUserResponse);
 
         try {
-            createdUserResponse
-                    .then()
-                    .assertThat()
-                    .body(matchesJsonSchemaInClasspath("user_creation_response_schema.json"));
+            verifyResponseSchema(createdUserResponse, "user_creation_response_schema.json");
         } catch (AssertionError e) {
             throw (new AssertionError(e));
         } finally {

@@ -4,6 +4,8 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 
 public class SystemApi {
 
@@ -32,19 +34,34 @@ public class SystemApi {
         }
     }
 
-    public static Response getRequestTo(String url) {
+    public static Response sendAuthorizedRequestTo(String requestType, RequestSpecification client, String url) {
+
+        switch (requestType.toUpperCase()) {
+            case "GET": {
+                return getRequestTo(url, client);
+            }
+            case "DELETE": {
+                return deleteRequestTo(url, client);
+            }
+            default: {
+                throw new IllegalArgumentException("Unsupported request type: " + requestType);
+            }
+        }
+    }
+
+    private static Response getRequestTo(String url) {
         return RestAssured.get(url);
     }
 
-    public static Response getRequestTo(String url, RequestSpecification client) {
+    private static Response getRequestTo(String url, RequestSpecification client) {
         return client.get(url);
     }
 
-    public static Response deleteRequestTo(String url) {
+    private static Response deleteRequestTo(String url) {
         return RestAssured.delete(url);
     }
 
-    public static Response deleteRequestTo(String url, RequestSpecification client) {
+    private static Response deleteRequestTo(String url, RequestSpecification client) {
         return client.delete(url);
     }
 }
