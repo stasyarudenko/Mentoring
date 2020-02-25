@@ -3,9 +3,7 @@ package com.mentoring.api.gorest.calls;
 import com.mentoring.api.gorest.client.HttpClient;
 import io.restassured.response.Response;
 
-import static com.mentoring.api.gorest.ApiEndpoints.CreateUser;
-import static com.mentoring.api.gorest.ApiEndpoints.DeleteUserById;
-import static com.mentoring.api.gorest.ApiEndpoints.GetUserById;
+import static com.mentoring.api.gorest.ApiEndpoints.*;
 
 
 public class UserController {
@@ -29,5 +27,17 @@ public class UserController {
                 "}";
 
         return HttpClient.sender(CreateUser.getMethod(), CreateUser.getEndpoint(), requestBody);
+    }
+
+    public static Response updateUserById(int id) {
+
+        String requestBody = "{\n" +
+                "\"first_name\":\"Anrud\",\n" +
+                "\"last_name\":\"Test\",\n" +
+                "\"gender\":\"female\",\n" +
+                "\"email\":\"anrud@roberts.com\",\n" +
+                "\"status\":\"active\"\n" +
+                "}";
+        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), requestBody);
     }
 }

@@ -10,14 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VerifyUsersListTest extends BaseTest {
 
-//    @Test
-//    public void testStatusResponseWithoutAuthentication() {
-//
-//        verifyResponseBodyCode(sender("get", PUBLIC_API_USERS), CODE_401);
-//    }
-
     @Test
-    public void testStatusResponseWithAuthentication() {
+    public void testStatusResponse() {
 
         assertEquals(HttpCode.OK.getCode(), HttpClient.sender(GetAllUsers.getMethod(), GetAllUsers.getEndpoint()).getStatusCode());
     }

@@ -2,9 +2,7 @@ package com.mentoring.api.gorest;
 
 import com.mentoring.api.gorest.client.HttpMethod;
 
-import static com.mentoring.api.gorest.client.HttpMethod.DELETE;
-import static com.mentoring.api.gorest.client.HttpMethod.GET;
-import static com.mentoring.api.gorest.client.HttpMethod.POST;
+import static com.mentoring.api.gorest.client.HttpMethod.*;
 
 
 public enum ApiEndpoints {
@@ -12,7 +10,8 @@ public enum ApiEndpoints {
     GetAllUsers(GET, "/public-api/users"),
     GetUserById(GET, "/public-api/users/%s"),
     DeleteUserById(DELETE, "/public-api/users/%s"),
-    CreateUser(POST, "/public-api/users");
+    CreateUser(POST, "/public-api/users"),
+    UpdateUserById(PUT, "/public-api/users/%s");
 
     private HttpMethod method;
     private String endpoint;
