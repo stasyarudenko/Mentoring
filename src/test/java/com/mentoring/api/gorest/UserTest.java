@@ -7,14 +7,25 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
+import static com.mentoring.api.gorest.calls.UserController.getAllUsers;
+import static com.mentoring.api.gorest.utils.UserUtils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class UserTest extends BaseTest{
 
     @Test
-    public void testGetUser() {
+    public void testAllUsersStatusResponse() {
+        assertEquals(HttpCode.OK.getCode(), getAllUsers().getStatusCode());
+    }
 
+    @Test
+    public void testValidateGetAllUsersSchema() {
+        verifyResponseSchema(getAllUsers(), "users_schema.json");
+    }
+
+    @Test
+    public void testGetUser() {
         assertEquals(HttpCode.Created.getCode(), UserController.getUserById(1).statusCode());
     }
 
@@ -32,17 +43,9 @@ public class UserTest extends BaseTest{
 
         Response createdUser = UserController.createUser();
         assertEquals(HttpCode.Created.getCode(), createdUser.statusCode());
+        createdUsers.add(getUserIdFromResponse(createdUser));
 
-        int userId = getUserIdFromResponse(createdUser);
-
-        try {
-            verifyResponseSchema(createdUser, "user_creation_response_schema.json");
-        } catch (AssertionError e) {
-            throw (new AssertionError(e));
-        } finally {
-            UserController.deleteUserById(userId);
-            verifyUserWithIdDoesNotExist(userId);
-        }
+        verifyResponseSchema(createdUser, "user_creation_response_schema.json");
     }
 
     @Test
@@ -52,16 +55,11 @@ public class UserTest extends BaseTest{
         assertEquals(HttpCode.Created.getCode(), createdUser.statusCode());
 
         int userId = getUserIdFromResponse(createdUser);
+        createdUsers.add(userId);
+
         Response updatedUser = UserController.updateUserById(userId);
 
-        try {
-            assertEquals(HttpCode.OK.getCode(), updatedUser.getStatusCode());
-        } catch (AssertionError e) {
-            throw (new AssertionError(e));
-        } finally {
-            UserController.deleteUserById(userId);
-            verifyUserWithIdDoesNotExist(userId);
-        }
+        assertEquals(HttpCode.OK.getCode(), updatedUser.getStatusCode());
     }
 
     @Test
@@ -70,14 +68,7 @@ public class UserTest extends BaseTest{
         int randomId = new Random().nextInt();
         verifyUserWithIdDoesNotExist(randomId);
 
-        try {
-            assertEquals(HttpCode.NotFound.getCode(), UserController.updateUserById(randomId).getStatusCode());
-        } catch (AssertionError e) {
-            throw (new AssertionError(e));
-        } finally {
-            UserController.deleteUserById(randomId);
-            verifyUserWithIdDoesNotExist(randomId);
-        }
+        assertEquals(HttpCode.NotFound.getCode(), UserController.updateUserById(randomId).getStatusCode());
     }
 
     @Test
@@ -87,15 +78,31 @@ public class UserTest extends BaseTest{
         assertEquals(HttpCode.Created.getCode(), createdUser.statusCode());
 
         int userId = getUserIdFromResponse(createdUser);
+        createdUsers.add(userId);
+
         Response updatedUser = UserController.updateUserById(userId);
 
-        try {
-            verifyResponseSchema(updatedUser, "user_creation_response_schema.json");
-        } catch (AssertionError e) {
-            throw (new AssertionError(e));
-        } finally {
-            UserController.deleteUserById(userId);
-            verifyUserWithIdDoesNotExist(userId);
-        }
+        verifyResponseSchema(updatedUser, "user_creation_response_schema.json");
+    }
+
+    @Test
+    public void testDeleteStatusResponse() {
+
+        Response createdUser = UserController.createUser();
+        assertEquals(HttpCode.Created.getCode(), createdUser.getStatusCode());
+
+        int userId = getUserIdFromResponse(createdUser);
+        createdUsers.add(userId);
+
+        assertEquals(HttpCode.Deleted.getCode(), UserController.deleteUserById(userId).getStatusCode());
+    }
+
+    @Test
+    public void testDeleteNonExistingUser() {
+
+        int randomUserID = new Random().nextInt();
+        verifyUserWithIdDoesNotExist(randomUserID);
+
+        assertEquals(HttpCode.NotFound.getCode(), UserController.deleteUserById(randomUserID).getStatusCode());
     }
 }
