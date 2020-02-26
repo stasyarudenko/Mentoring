@@ -11,7 +11,11 @@ public enum ApiEndpoints {
     GetUserById(GET, "/public-api/users/%s"),
     DeleteUserById(DELETE, "/public-api/users/%s"),
     CreateUser(POST, "/public-api/users"),
-    UpdateUserById(PUT, "/public-api/users/%s");
+    UpdateUserById(PUT, "/public-api/users/%s"),
+    GetAllPosts(GET, "/public-api/posts"),
+    GetPostById(GET, "/public-api/posts/%s"),
+    DeletePostById(DELETE, "/public-api/posts/%s"),
+    CreatePostById(POST, "/public-api/posts/%s");
 
     private HttpMethod method;
     private String endpoint;
