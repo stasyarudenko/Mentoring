@@ -42,7 +42,7 @@ public class UserController {
                 "\"email\":\"anrud@roberts.com\",\n" +
                 "\"status\":\"active\"\n" +
                 "}";
-        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), requestBody);
+        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), requestBody, id);
     }
 
     public static Response getAllPosts() {
@@ -75,15 +75,20 @@ public class UserController {
         return HttpClient.sender(CreatePost.getMethod(), CreatePost.getEndpoint(), requestBody);
     }
 
-    public static Response updatePostById(int id) {
+    public static Response updatePostById(int postId) {
 
+        String title = "Hariba test title";
+        String body = "Hariba ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. " +
+                "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. " +
+                "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. " +
+                "Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, " +
+                "imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. " +
+                "Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.";
         String requestBody = "{\n" +
-                "\"first_name\":\"Anrud\",\n" +
-                "\"last_name\":\"Test\",\n" +
-                "\"gender\":\"female\",\n" +
-                "\"email\":\"anrud@roberts.com\",\n" +
-                "\"status\":\"active\"\n" +
+                "\"title\":\"" + title + "\",\n" +
+                "\"body\":\"" + body + "\",\n" +
                 "}";
-        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), requestBody);
+
+        return HttpClient.sender(UpdatePostById.getMethod(), UpdatePostById.getEndpoint(), requestBody, postId);
     }
 }
