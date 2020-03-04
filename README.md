@@ -190,7 +190,14 @@
     DONE. перевести все тесты под новые классы
     накидать еще тестов в юзера - про все коллы, не только один эндпоинт
     DONE. перенести методы в UserController
-    сделать задание данных юзера через генерилку
+    сделать задание данных юзера через генерилку - создавать уникального юзера в прекоднишине
     DONE. добавить в BaseTest afterAll с удалением созданных юзеров тестами (предварительно собирать статическую мапу с их айдишками)
     DONE. убрать из BaseTest методы в UserUtils
     в UserUtils добавить логгирование для id
+
+
+    // ToDo -------------------- HOMETASK 11
+    create post - add assert
+    in tests - check not only status code but also that created data is correct
+    precondition builder pattern - read and add to tests
+    убрать utils

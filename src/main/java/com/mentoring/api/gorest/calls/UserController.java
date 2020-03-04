@@ -1,5 +1,6 @@
 package com.mentoring.api.gorest.calls;
 
+import com.github.javafaker.Faker;
 import com.mentoring.api.gorest.client.HttpClient;
 import io.restassured.response.Response;
 
@@ -7,6 +8,8 @@ import static com.mentoring.api.gorest.endpoints.ApiEndpoints.*;
 
 
 public class UserController {
+
+    private static Faker faker = new Faker();
 
     public static Response getAllUsers() {
         return HttpClient.sender(GetAllUsers.getMethod(), GetAllUsers.getEndpoint(), null);
@@ -22,27 +25,27 @@ public class UserController {
 
     public static Response createUser() {
 
-        String requestBody = "{\n" +
-                "\"first_name\":\"Anrud\",\n" +
-                "\"last_name\":\"Test\",\n" +
-                "\"gender\":\"male\",\n" +
-                "\"email\":\"anrud02@roberts.com\",\n" +
-                "\"status\":\"active\"\n" +
-                "}";
-
-        return HttpClient.sender(CreateUser.getMethod(), CreateUser.getEndpoint(), requestBody);
+        return HttpClient.sender(CreateUser.getMethod(), CreateUser.getEndpoint(), generateUserResponseBody());
     }
 
     public static Response updateUserById(int id) {
 
-        String requestBody = "{\n" +
-                "\"first_name\":\"Anrud\",\n" +
-                "\"last_name\":\"Test\",\n" +
-                "\"gender\":\"female\",\n" +
-                "\"email\":\"anrud@roberts.com\",\n" +
+        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), generateUserResponseBody(), id);
+    }
+
+    private static String generateUserResponseBody(){
+
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String email = firstName + lastName + "@test.test";
+
+        return  "{\n" +
+                "\"first_name\":\"" + firstName + "\",\n" +
+                "\"last_name\":\"" + lastName + "\",\n" +
+                "\"gender\":\"male\",\n" +
+                "\"email\":\"" + email + "\",\n" +
                 "\"status\":\"active\"\n" +
                 "}";
-        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), requestBody, id);
     }
 
     public static Response getAllPosts() {
@@ -59,36 +62,26 @@ public class UserController {
 
     public static Response createPostByUserId(int userId) {
 
-        String title = "some test title";
-        String body = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. " +
-                "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. " +
-                "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. " +
-                "Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, " +
-                "imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. " +
-                "Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.";
+        String title = faker.howIMetYourMother().catchPhrase();
+        String body = faker.howIMetYourMother().quote();
         String requestBody = "{\n" +
                 "\"user_id\":\"" + userId + "\",\n" +
                 "\"title\":\"" + title + "\",\n" +
-                "\"body\":\"" + body + "\",\n" +
+                "\"body\":\"" + body + "\"\n" +
                 "}";
-
         return HttpClient.sender(CreatePost.getMethod(), CreatePost.getEndpoint(), requestBody);
     }
 
     public static Response updatePostById(int postId) {
 
-        String title = "Hariba test title";
-        String body = "Hariba ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. " +
-                "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. " +
-                "Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. " +
-                "Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, " +
-                "imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. " +
-                "Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.";
+        String title = faker.howIMetYourMother().catchPhrase();
+        String body = faker.howIMetYourMother().quote();
         String requestBody = "{\n" +
                 "\"title\":\"" + title + "\",\n" +
-                "\"body\":\"" + body + "\",\n" +
+                "\"body\":\"" + body + "\"\n" +
                 "}";
 
         return HttpClient.sender(UpdatePostById.getMethod(), UpdatePostById.getEndpoint(), requestBody, postId);
     }
+
 }

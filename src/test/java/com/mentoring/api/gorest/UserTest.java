@@ -26,11 +26,11 @@ public class UserTest extends BaseTest{
 
     @Test
     public void testGetUser() {
-        assertEquals(HttpCode.Created.getCode(), UserController.getUserById(1).statusCode());
+        assertEquals(HttpCode.OK.getCode(), UserController.getUserById(1).statusCode());
     }
 
     @Test
-    public void testNonExistingGetUser() {
+    public void testGetNonExistingUser() {
 
         int randomId = new Random().nextInt();
         verifyUserWithIdDoesNotExist(randomId);
@@ -39,10 +39,17 @@ public class UserTest extends BaseTest{
     }
 
     @Test
+    public void testCreateUser() {
+
+        Response createdUser = UserController.createUser();
+        assertEquals(302, createdUser.statusCode());
+    }
+
+    @Test
     public void testValidateCreateUserSchema() {
 
         Response createdUser = UserController.createUser();
-        assertEquals(HttpCode.Created.getCode(), createdUser.statusCode());
+        assertEquals(302, createdUser.statusCode());
         createdUsers.add(getUserIdFromResponse(createdUser));
 
         verifyResponseSchema(createdUser, "user_creation_response_schema.json");
@@ -52,7 +59,7 @@ public class UserTest extends BaseTest{
     public void testUpdateUser() {
 
         Response createdUser = UserController.createUser();
-        assertEquals(HttpCode.Created.getCode(), createdUser.statusCode());
+        assertEquals(302, createdUser.statusCode());
 
         int userId = getUserIdFromResponse(createdUser);
         createdUsers.add(userId);
@@ -75,7 +82,7 @@ public class UserTest extends BaseTest{
     public void testValidateUserUpdateSchema() {
 
         Response createdUser = UserController.createUser();
-        assertEquals(HttpCode.Created.getCode(), createdUser.statusCode());
+        assertEquals(302, createdUser.statusCode());
 
         int userId = getUserIdFromResponse(createdUser);
         createdUsers.add(userId);
@@ -86,15 +93,15 @@ public class UserTest extends BaseTest{
     }
 
     @Test
-    public void testDeleteStatusResponse() {
+    public void testDeleteUserStatusResponse() {
 
         Response createdUser = UserController.createUser();
-        assertEquals(HttpCode.Created.getCode(), createdUser.getStatusCode());
+        assertEquals(302, createdUser.getStatusCode());
 
         int userId = getUserIdFromResponse(createdUser);
         createdUsers.add(userId);
 
-        assertEquals(HttpCode.Deleted.getCode(), UserController.deleteUserById(userId).getStatusCode());
+        assertEquals(HttpCode.OK.getCode(), UserController.deleteUserById(userId).getStatusCode());
     }
 
     @Test

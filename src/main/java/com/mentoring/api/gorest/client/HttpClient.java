@@ -45,14 +45,14 @@ public class HttpClient {
         return authorizedClient().delete(url);
     }
 
-    private static Response post(String url, String ... body) {
+    private static Response post(String url, String body) {
         return authorizedClient()
                 .contentType(ContentType.JSON)
                 .body(body)
                 .post(url);
     }
 
-    private static Response put(String url, String ... body) {
+    private static Response put(String url, String body) {
         return authorizedClient()
                 .contentType(ContentType.JSON)
                 .body(body)

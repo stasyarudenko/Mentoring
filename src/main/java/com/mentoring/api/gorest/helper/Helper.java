@@ -14,7 +14,7 @@ public class Helper {
     public static int createUser() {
 
         Response createdUser = UserController.createUser();
-        assertEquals(HttpCode.Created.getCode(), createdUser.getStatusCode());
+        assertEquals(302, createdUser.getStatusCode());
 
         return getUserIdFromResponse(createdUser);
     }

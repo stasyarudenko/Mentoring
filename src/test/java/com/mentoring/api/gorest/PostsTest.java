@@ -32,7 +32,7 @@ public class PostsTest extends BaseTest{
         int postId = getPostIdFromResponse(createdPost);
         createdPosts.add(postId);
 
-        assertEquals(HttpCode.Created.getCode(), createdPost.getStatusCode());
+        assertEquals(302, createdPost.getStatusCode());
     }
 
     @Test

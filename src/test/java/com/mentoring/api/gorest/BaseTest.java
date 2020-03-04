@@ -15,8 +15,8 @@ import static com.mentoring.api.gorest.config.Configuration.PORT;
 
 public class BaseTest {
 
-    static List<Integer> createdUsers = new ArrayList<>();
-    static List<Integer> createdPosts = new ArrayList<>();
+    public static List<Integer> createdUsers = new ArrayList<>();
+    public static List<Integer> createdPosts = new ArrayList<>();
 
     @BeforeAll
     public static void setUp() {
@@ -29,7 +29,6 @@ public class BaseTest {
     public static void tearDown() {
 
         createdUsers.forEach(UserController::deleteUserById);
-        createdUsers.forEach(UserUtils::verifyUserWithIdDoesNotExist);
 
         createdPosts.forEach(UserController::deletePostById);
     }
