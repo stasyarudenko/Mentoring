@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static com.mentoring.api.gorest.config.Configuration.BASE_URL;
 import static com.mentoring.api.gorest.config.Configuration.PORT;
@@ -28,7 +29,10 @@ public class BaseTest {
     public static void tearDown() {
 
         createdUsers.forEach(UserController::deleteUserById);
-
         createdPosts.forEach(UserController::deletePostById);
+    }
+
+    public static int generateRandomId() {
+        return new Random().nextInt();
     }
 }

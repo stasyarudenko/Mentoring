@@ -5,9 +5,6 @@ import com.mentoring.api.gorest.client.HttpCode;
 import com.mentoring.api.gorest.precondition.Precondition;
 import org.junit.jupiter.api.Test;
 
-
-import java.util.Random;
-
 import static com.mentoring.api.gorest.calls.UserController.getAllPosts;
 import static com.mentoring.api.gorest.calls.UserController.getPostById;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,10 +28,17 @@ public class PostsTest extends BaseTest{
     }
 
     @Test
-    public void testGetNonExistingPostById() {
+    public void testCreatePostByNonExistingUser() {
 
-        int id = new Random().nextInt();
-        assertEquals(HttpCode.NotFound.getCode(), getPostById(id).getStatusCode());
+        Precondition precondition = Precondition.preconditionBuilder().createPostByNonExistingUser().perform();
+        assertEquals(HttpCode.OK.getCode(), precondition.getPost().getStatusCode());
+    }
+
+    @Test
+    public void testGetNonExistingPost() {
+
+        int postId = generateRandomId();
+        assertEquals(HttpCode.NotFound.getCode(), getPostById(postId).getStatusCode());
     }
 
     @Test
@@ -58,6 +62,13 @@ public class PostsTest extends BaseTest{
     }
 
     @Test
+    public void testUpdateNonExistingPost() {
+
+        int postId = generateRandomId();
+        assertEquals(HttpCode.NotFound.getCode(), UserController.updatePostById(postId).getStatusCode());
+    }
+
+    @Test
     public void testVerifyPostDeleteStatusCode() {
 
         Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
@@ -65,5 +76,12 @@ public class PostsTest extends BaseTest{
         createdPosts.add(precondition.getPostID());
 
         assertEquals(HttpCode.OK.getCode(), UserController.deletePostById(precondition.getPostID()).getStatusCode());
+    }
+
+    @Test
+    public void testDeleteNonExistingPost() {
+
+        int postId = generateRandomId();
+        assertEquals(HttpCode.NotFound.getCode(), UserController.deletePostById(postId).getStatusCode());
     }
 }

@@ -5,6 +5,8 @@ import com.mentoring.api.gorest.client.HttpCode;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Random;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -70,6 +72,13 @@ public class Precondition {
 
             this.post = UserController.createPostByUserId(userID);
             this.postID = getPostIdFromResponse(post);
+            return this;
+        }
+
+        public PreconditionBuilder createPostByNonExistingUser() {
+
+            this.userID = new Random().nextInt();;
+            this.post = UserController.createPostByUserId(userID);
             return this;
         }
 

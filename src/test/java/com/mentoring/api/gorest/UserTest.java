@@ -7,8 +7,6 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
-
 import static com.mentoring.api.gorest.calls.UserController.getAllUsers;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UserTest extends BaseTest{
 
     @Test
-    public void testAllUsersStatusResponse() {
+    public void testGetAllUsersStatusResponse() {
         assertEquals(HttpCode.OK.getCode(), getAllUsers().getStatusCode());
     }
 
     @Test
-    public void testValidateGetAllUsersSchema() {
+    public void testValidateGetAllUsersResponseSchema() {
         verifyResponseSchema(getAllUsers(), "users_schema.json");
     }
 
@@ -34,10 +32,10 @@ public class UserTest extends BaseTest{
     @Test
     public void testGetNonExistingUser() {
 
-        int randomId = new Random().nextInt();
-        verifyUserWithIdDoesNotExist(randomId);
+        int userId = generateRandomId();
+        verifyUserWithIdDoesNotExist(userId);
 
-        assertEquals(HttpCode.NotFound.getCode(), UserController.getUserById(randomId).statusCode());
+        assertEquals(HttpCode.NotFound.getCode(), UserController.getUserById(userId).statusCode());
     }
 
     @Test
@@ -49,7 +47,7 @@ public class UserTest extends BaseTest{
     }
 
     @Test
-    public void testValidateCreateUserSchema() {
+    public void testValidateCreateUserResponseSchema() {
 
         Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().perform();
         createdUsers.add(precondition.getUserID());
@@ -71,14 +69,14 @@ public class UserTest extends BaseTest{
     @Test
     public void testUpdateNonExistingUser() {
 
-        int randomId = new Random().nextInt();
-        verifyUserWithIdDoesNotExist(randomId);
+        int userId = generateRandomId();
+        verifyUserWithIdDoesNotExist(userId);
 
-        assertEquals(HttpCode.NotFound.getCode(), UserController.updateUserById(randomId).getStatusCode());
+        assertEquals(HttpCode.NotFound.getCode(), UserController.updateUserById(userId).getStatusCode());
     }
 
     @Test
-    public void testValidateUserUpdateSchema() {
+    public void testValidateUpdateUserResponseSchema() {
 
         Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().perform();
         createdUsers.add(precondition.getUserID());
@@ -100,10 +98,10 @@ public class UserTest extends BaseTest{
     @Test
     public void testDeleteNonExistingUser() {
 
-        int randomUserID = new Random().nextInt();
-        verifyUserWithIdDoesNotExist(randomUserID);
+        int userId = generateRandomId();
+        verifyUserWithIdDoesNotExist(userId);
 
-        assertEquals(HttpCode.NotFound.getCode(), UserController.deleteUserById(randomUserID).getStatusCode());
+        assertEquals(HttpCode.NotFound.getCode(), UserController.deleteUserById(userId).getStatusCode());
     }
 
 
@@ -115,7 +113,6 @@ public class UserTest extends BaseTest{
     }
 
     private void verifyUserWithIdDoesNotExist(int id) {
-
         Assert.assertEquals(HttpCode.NotFound.getCode(), UserController.getUserById(id).getStatusCode());
     }
 }
