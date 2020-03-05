@@ -24,16 +24,14 @@ public class UserController {
     }
 
     public static Response createUser() {
-
-        return HttpClient.sender(CreateUser.getMethod(), CreateUser.getEndpoint(), generateUserResponseBody());
+        return HttpClient.sender(CreateUser.getMethod(), CreateUser.getEndpoint(), generateUserRequestBody());
     }
 
     public static Response updateUserById(int id) {
-
-        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), generateUserResponseBody(), id);
+        return HttpClient.sender(UpdateUserById.getMethod(), UpdateUserById.getEndpoint(), generateUserRequestBody(), id);
     }
 
-    private static String generateUserResponseBody(){
+    private static String generateUserRequestBody(){
 
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();

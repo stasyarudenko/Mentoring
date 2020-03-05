@@ -2,8 +2,6 @@ package com.mentoring.api.gorest;
 
 import com.mentoring.api.gorest.calls.UserController;
 import com.mentoring.api.gorest.client.HttpCode;
-import com.mentoring.api.gorest.helper.Helper;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 
@@ -11,7 +9,6 @@ import java.util.Random;
 
 import static com.mentoring.api.gorest.calls.UserController.getAllPosts;
 import static com.mentoring.api.gorest.calls.UserController.getPostById;
-import static com.mentoring.api.gorest.utils.UserUtils.getPostIdFromResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -23,17 +20,24 @@ public class PostsTest extends BaseTest{
     }
 
     @Test
-    public void testCreatePost() {
+    public void testVerifyCreatedPostStatusCode() {
 
-        int userId = Helper.createUser();
-        createdUsers.add(userId);
+        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        createdUsers.add(precondition.getUserID());
+        createdPosts.add(precondition.getPostID());
 
-        Response createdPost = UserController.createPostByUserId(userId);
-        int postId = getPostIdFromResponse(createdPost);
-        createdPosts.add(postId);
-
-        assertEquals(302, createdPost.getStatusCode());
+        assertEquals(302, precondition.getPost().getStatusCode());
     }
+
+//    @Test
+//    public void testVerifyCreatedPostTitle() {
+//
+//        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+//        createdUsers.add(precondition.getUserID());
+//        createdPosts.add(precondition.getPostID());
+//
+//        assertEquals(302, precondition.getPostTitle().getStatusCode());
+//    }
 
     @Test
     public void testGetNonExistingPostById() {
@@ -45,36 +49,30 @@ public class PostsTest extends BaseTest{
     @Test
     public void testGetPostById() {
 
-        int userId = Helper.createUser();
-        createdUsers.add(userId);
+        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        createdUsers.add(precondition.getUserID());
+        createdPosts.add(precondition.getPostID());
 
-        int postId = Helper.createPostByUser(userId);
-        createdPosts.add(postId);
-
-        assertEquals(HttpCode.OK.getCode(), UserController.getPostById(postId).getStatusCode());
-    }
-
-    @Test
-    public void testVerifyPostDelete() {
-
-        int userId = Helper.createUser();
-        createdUsers.add(userId);
-
-        int postId = Helper.createPostByUser(userId);
-        createdPosts.add(postId);
-
-        assertEquals(HttpCode.Deleted.getCode(), UserController.deletePostById(postId).getStatusCode());
+        assertEquals(HttpCode.OK.getCode(), UserController.getPostById(precondition.getPostID()).getStatusCode());
     }
 
     @Test
     public void testUpdatePost() {
 
-        int userId = Helper.createUser();
-        createdUsers.add(userId);
+        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        createdUsers.add(precondition.getUserID());
+        createdPosts.add(precondition.getPostID());
 
-        int postId = Helper.createPostByUser(userId);
-        createdPosts.add(postId);
+        assertEquals(HttpCode.OK.getCode(), UserController.updatePostById(precondition.getPostID()).getStatusCode());
+    }
 
-        assertEquals(HttpCode.OK.getCode(), UserController.updatePostById(postId).getStatusCode());
+    @Test
+    public void testVerifyPostDelete() {
+
+        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        createdUsers.add(precondition.getUserID());
+        createdPosts.add(precondition.getPostID());
+
+        assertEquals(HttpCode.OK.getCode(), UserController.deletePostById(precondition.getPostID()).getStatusCode());
     }
 }
