@@ -9,7 +9,9 @@ import static com.mentoring.api.gorest.config.Configuration.TOKEN;
 
 public class HttpClient {
 
-    public static Response sender(HttpMethod method, String endpoint, String ... body) {
+    public static Response sender(HttpMethod method, String endpoint, String body, Object... parameter) {
+
+        endpoint = parameter.length > 0 ? String.format(endpoint, parameter) : endpoint;
 
         switch (method) {
 
@@ -25,8 +27,12 @@ public class HttpClient {
                 return post(endpoint, body);
             }
 
+            case PUT: {
+                return put(endpoint, body);
+            }
+
             default: {
-                throw new IllegalArgumentException("Only GET, DELETE allowed");
+                throw new IllegalArgumentException("Only GET, DELETE, POST, PUT allowed");
             }
         }
     }
@@ -39,14 +45,21 @@ public class HttpClient {
         return authorizedClient().delete(url);
     }
 
-    private static Response post(String url, String[] body) {
+    private static Response post(String url, String body) {
         return authorizedClient()
                 .contentType(ContentType.JSON)
                 .body(body)
                 .post(url);
     }
 
-    public static RequestSpecification authorizedClient() {
+    private static Response put(String url, String body) {
+        return authorizedClient()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .put(url);
+    }
+
+    private static RequestSpecification authorizedClient() {
         return RestAssured.given().auth().oauth2(TOKEN);
     }
 }
