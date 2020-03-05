@@ -1,11 +1,11 @@
-package com.mentoring.api.gorest;
+package com.mentoring.api.gorest.precondition;
 
 import com.mentoring.api.gorest.calls.UserController;
 import com.mentoring.api.gorest.client.HttpCode;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 
 public class Precondition {

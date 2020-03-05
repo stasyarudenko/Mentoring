@@ -2,6 +2,7 @@ package com.mentoring.api.gorest;
 
 import com.mentoring.api.gorest.calls.UserController;
 import com.mentoring.api.gorest.client.HttpCode;
+import com.mentoring.api.gorest.precondition.Precondition;
 import org.junit.jupiter.api.Test;
 
 
@@ -29,16 +30,6 @@ public class PostsTest extends BaseTest{
         assertEquals(302, precondition.getPost().getStatusCode());
     }
 
-//    @Test
-//    public void testVerifyCreatedPostTitle() {
-//
-//        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
-//        createdUsers.add(precondition.getUserID());
-//        createdPosts.add(precondition.getPostID());
-//
-//        assertEquals(302, precondition.getPostTitle().getStatusCode());
-//    }
-
     @Test
     public void testGetNonExistingPostById() {
 
@@ -47,7 +38,7 @@ public class PostsTest extends BaseTest{
     }
 
     @Test
-    public void testGetPostById() {
+    public void testGetPost() {
 
         Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
         createdUsers.add(precondition.getUserID());
@@ -67,7 +58,7 @@ public class PostsTest extends BaseTest{
     }
 
     @Test
-    public void testVerifyPostDelete() {
+    public void testVerifyPostDeleteStatusCode() {
 
         Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
         createdUsers.add(precondition.getUserID());

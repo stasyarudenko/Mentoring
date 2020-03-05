@@ -1,7 +1,6 @@
 package com.mentoring.api.gorest;
 
 import com.mentoring.api.gorest.calls.UserController;
-import com.mentoring.api.gorest.utils.UserUtils;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

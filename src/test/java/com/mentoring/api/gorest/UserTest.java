@@ -2,13 +2,15 @@ package com.mentoring.api.gorest;
 
 import com.mentoring.api.gorest.calls.UserController;
 import com.mentoring.api.gorest.client.HttpCode;
+import com.mentoring.api.gorest.precondition.Precondition;
 import io.restassured.response.Response;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
 import static com.mentoring.api.gorest.calls.UserController.getAllUsers;
-import static com.mentoring.api.gorest.utils.UserUtils.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -102,5 +104,18 @@ public class UserTest extends BaseTest{
         verifyUserWithIdDoesNotExist(randomUserID);
 
         assertEquals(HttpCode.NotFound.getCode(), UserController.deleteUserById(randomUserID).getStatusCode());
+    }
+
+
+    private void verifyResponseSchema(Response response, String jsonSchemaPath) {
+
+        response.then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath(jsonSchemaPath));
+    }
+
+    private void verifyUserWithIdDoesNotExist(int id) {
+
+        Assert.assertEquals(HttpCode.NotFound.getCode(), UserController.getUserById(id).getStatusCode());
     }
 }
