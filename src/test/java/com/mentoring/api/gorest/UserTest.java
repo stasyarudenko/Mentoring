@@ -41,7 +41,9 @@ public class UserTest extends BaseTest{
     @Test
     public void testCreateUser() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .build();
         createdUsers.add(precondition.getUserID());
         assertEquals(HttpCode.OK.getCode(), UserController.getUserById(precondition.getUserID()).statusCode());
     }
@@ -49,7 +51,10 @@ public class UserTest extends BaseTest{
     @Test
     public void testValidateCreateUserResponseSchema() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .build();
         createdUsers.add(precondition.getUserID());
 
         verifyResponseSchema(precondition.getUser(), "user_creation_response_schema.json");
@@ -58,7 +63,10 @@ public class UserTest extends BaseTest{
     @Test
     public void testUpdateUser() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .build();
         createdUsers.add(precondition.getUserID());
 
         Response updatedUser = UserController.updateUserById(precondition.getUserID());
@@ -78,7 +86,10 @@ public class UserTest extends BaseTest{
     @Test
     public void testValidateUpdateUserResponseSchema() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .build();
         createdUsers.add(precondition.getUserID());
 
         Response updatedUser = UserController.updateUserById(precondition.getUserID());
@@ -89,7 +100,10 @@ public class UserTest extends BaseTest{
     @Test
     public void testDeleteUserStatusResponse() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .build();
         createdUsers.add(precondition.getUserID());
 
         assertEquals(HttpCode.OK.getCode(), UserController.deleteUserById(precondition.getUserID()).getStatusCode());
@@ -103,7 +117,6 @@ public class UserTest extends BaseTest{
 
         assertEquals(HttpCode.NotFound.getCode(), UserController.deleteUserById(userId).getStatusCode());
     }
-
 
     private void verifyResponseSchema(Response response, String jsonSchemaPath) {
 

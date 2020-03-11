@@ -20,7 +20,11 @@ public class PostsTest extends BaseTest{
     @Test
     public void testVerifyCreatedPostStatusCode() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .createPost()
+                .build();
         createdUsers.add(precondition.getUserID());
         createdPosts.add(precondition.getPostID());
 
@@ -30,7 +34,9 @@ public class PostsTest extends BaseTest{
     @Test
     public void testCreatePostByNonExistingUser() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createPostByNonExistingUser().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createPostByNonExistingUser()
+                .build();
         assertEquals(HttpCode.OK.getCode(), precondition.getPost().getStatusCode());
     }
 
@@ -44,7 +50,11 @@ public class PostsTest extends BaseTest{
     @Test
     public void testGetPost() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .createPost()
+                .build();
         createdUsers.add(precondition.getUserID());
         createdPosts.add(precondition.getPostID());
 
@@ -54,7 +64,11 @@ public class PostsTest extends BaseTest{
     @Test
     public void testUpdatePost() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .createPost()
+                .build();
         createdUsers.add(precondition.getUserID());
         createdPosts.add(precondition.getPostID());
 
@@ -71,7 +85,11 @@ public class PostsTest extends BaseTest{
     @Test
     public void testVerifyPostDeleteStatusCode() {
 
-        Precondition precondition = Precondition.preconditionBuilder().createUser().verifyUserCreated().createPost().perform();
+        Precondition precondition = Precondition.preconditionBuilder()
+                .createUser()
+                .verifyUserCreated()
+                .createPost()
+                .build();
         createdUsers.add(precondition.getUserID());
         createdPosts.add(precondition.getPostID());
 

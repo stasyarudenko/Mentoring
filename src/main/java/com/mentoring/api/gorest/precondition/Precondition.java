@@ -4,6 +4,7 @@ import com.mentoring.api.gorest.calls.UserController;
 import com.mentoring.api.gorest.client.HttpCode;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.util.Random;
 
@@ -52,7 +53,9 @@ public class Precondition {
         Response post;
         int postID;
 
-        public Precondition perform() {
+        final static Logger logger = Logger.getLogger(PreconditionBuilder.class);
+
+        public Precondition build() {
             return new Precondition(user, userID, post, postID);
         }
 
@@ -85,14 +88,16 @@ public class Precondition {
         private int getUserIdFromResponse(Response response) {
 
             int userId = Integer.parseInt(StringUtils.substringBetween(response.getBody().prettyPrint(), "\"id\": \"", "\",\n"));
-            System.out.println("-------------\nUser ID: " + userId + "\n-------------"); // Add logger (Log4J)
+//            System.out.println("-------------\nUser ID: " + userId + "\n-------------"); // Add logger (Log4J)
+            logger.info("\n-------------\nUser ID: " + userId + "\n-------------");
             return userId;
         }
 
         private int getPostIdFromResponse(Response response) {
 
             int postId = Integer.parseInt(StringUtils.substringBetween(response.getBody().prettyPrint(), "\"id\": \"", "\",\n"));
-            System.out.println("-------------\nPost ID: " + postId + "\n-------------"); // Add logger (Log4J)
+//            System.out.println("-------------\nPost ID: " + postId + "\n-------------"); //
+            logger.info("\n-------------\nPost ID: " + postId + "\n-------------");
             return postId;
         }
     }
