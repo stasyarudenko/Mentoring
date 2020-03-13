@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import static com.mentoring.api.gorest.Utils.generateRandomId;
 import static com.mentoring.api.gorest.calls.UserController.getAllUsers;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -212,4 +212,4 @@
     https://github.com/puppeteer/puppeteer + mobile testing
     https://mochajs.org/
     https://www.youtube.com/playlist?list=PLa7q-VITePQWDxFmiDrwlBZ1E9k_nnqLe - selenium camp
-    апи - на будущее - поменять клиента (сендер)
+    апи - на будущее - поменять клиента (сендер) - апаче хттп клиент? unirest?

@@ -5,6 +5,7 @@ import com.mentoring.api.gorest.client.HttpCode;
 import com.mentoring.api.gorest.precondition.Precondition;
 import org.junit.jupiter.api.Test;
 
+import static com.mentoring.api.gorest.Utils.generateRandomId;
 import static com.mentoring.api.gorest.calls.UserController.getAllPosts;
 import static com.mentoring.api.gorest.calls.UserController.getPostById;
 import static org.junit.jupiter.api.Assertions.assertEquals;
