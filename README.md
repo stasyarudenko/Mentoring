@@ -176,28 +176,40 @@
 
     // ToDo -------------------- HOMETASK 09
 
-    убрать ненужные депенденси из pom файла
-    добавить апи класс на DELETE для списка юзеров - набрасываем тесты кол-во
-    вынести апи в отдельный класс и дергать его оттуда
+    DONE. убрать ненужные депенденси из pom файла
+    DONE. добавить апи класс на DELETE для списка юзеров - набрасываем тесты кол-во
+    DONE. вынести апи в отдельный класс и дергать его оттуда
     хитрость: через стринг риплейс можно менять параметры (для джейсона, например) - как через стринг формат
 
 
     // ToDo -------------------- HOMETASK 10
 
     system api --> main
-    get/delete/... --> enum
-    post put --> добавить метод для риквеста тоже
+    DONE. get/delete/... --> enum
+    DONE. post put --> добавить метод для риквеста тоже
     DONE. перевести все тесты под новые классы
     накидать еще тестов в юзера - про все коллы, не только один эндпоинт
     DONE. перенести методы в UserController
-    сделать задание данных юзера через генерилку - создавать уникального юзера в прекоднишине
+    DONE. сделать задание данных юзера через генерилку - создавать уникального юзера в прекоднишине
     DONE. добавить в BaseTest afterAll с удалением созданных юзеров тестами (предварительно собирать статическую мапу с их айдишками)
     DONE. убрать из BaseTest методы в UserUtils
-    в UserUtils добавить логгирование для id
 
 
     // ToDo -------------------- HOMETASK 11
+
     create post - add assert
     in tests - check not only status code but also that created data is correct
-    precondition builder pattern - read and add to tests
-    убрать utils
+    DONE. precondition builder pattern - read and add to tests
+    DONE. убрать utils
+    добавить форматирование для создания прекондишена - с новой строки методы
+    добавить логгирование для id при получении айди из строки Add logger (Log4J) - почитать про левелы логирования
+        когда какой лог используется
+        для чего
+        как посвечивается
+
+    more interesting:
+    Testing asynchronous systems - awaitility https://github.com/awaitility/awaitility
+    https://github.com/puppeteer/puppeteer + mobile testing
+    https://mochajs.org/
+    https://www.youtube.com/playlist?list=PLa7q-VITePQWDxFmiDrwlBZ1E9k_nnqLe - selenium camp
+    апи - на будущее - поменять клиента (сендер) - апаче хттп клиент? unirest?

@@ -4,10 +4,14 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.log4j.Logger;
+
 import static com.mentoring.api.gorest.config.Configuration.TOKEN;
 
 
 public class HttpClient {
+
+    private static final Logger logger = Logger.getLogger(HttpClient.class);
 
     public static Response sender(HttpMethod method, String endpoint, String body, Object... parameter) {
 
@@ -38,14 +42,20 @@ public class HttpClient {
     }
 
     private static Response get(String url) {
+
+        logger.debug("Sending GET request to " + url);
         return authorizedClient().get(url);
     }
 
     private static Response delete(String url) {
+
+        logger.debug("Sending DELETE request to " + url);
         return authorizedClient().delete(url);
     }
 
     private static Response post(String url, String body) {
+
+        logger.debug("Sending POST request to " + url + " with body:\n" + body);
         return authorizedClient()
                 .contentType(ContentType.JSON)
                 .body(body)
@@ -53,6 +63,8 @@ public class HttpClient {
     }
 
     private static Response put(String url, String body) {
+
+        logger.debug("Sending PUT request to " + url + " with body:\n" + body);
         return authorizedClient()
                 .contentType(ContentType.JSON)
                 .body(body)
@@ -60,6 +72,8 @@ public class HttpClient {
     }
 
     private static RequestSpecification authorizedClient() {
+
+        logger.debug("Authorizing client...");
         return RestAssured.given().auth().oauth2(TOKEN);
     }
 }

@@ -4,9 +4,11 @@ import com.mentoring.api.gorest.calls.UserController;
 import com.mentoring.api.gorest.client.HttpCode;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.util.Random;
 
+import static com.mentoring.api.gorest.Utils.generateRandomId;
 import static org.junit.Assert.assertEquals;
 
 
@@ -52,7 +54,9 @@ public class Precondition {
         Response post;
         int postID;
 
-        public Precondition perform() {
+        final static Logger logger = Logger.getLogger(PreconditionBuilder.class);
+
+        public Precondition build() {
             return new Precondition(user, userID, post, postID);
         }
 
@@ -77,22 +81,28 @@ public class Precondition {
 
         public PreconditionBuilder createPostByNonExistingUser() {
 
-            this.userID = new Random().nextInt();;
+            logger.info("Creating post by non existing user...");
+
+            this.userID = generateRandomId();
             this.post = UserController.createPostByUserId(userID);
             return this;
         }
 
         private int getUserIdFromResponse(Response response) {
 
+            logger.info("Getting user id from response...");
             int userId = Integer.parseInt(StringUtils.substringBetween(response.getBody().prettyPrint(), "\"id\": \"", "\",\n"));
-            System.out.println("-------------\nUser ID: " + userId + "\n-------------"); // Add logger (Log4J)
+            logger.info("User ID: " + userId);
+
             return userId;
         }
 
         private int getPostIdFromResponse(Response response) {
 
+            logger.info("Getting post id from response...");
             int postId = Integer.parseInt(StringUtils.substringBetween(response.getBody().prettyPrint(), "\"id\": \"", "\",\n"));
-            System.out.println("-------------\nPost ID: " + postId + "\n-------------"); // Add logger (Log4J)
+            logger.info("Post ID: " + postId);
+
             return postId;
         }
     }
